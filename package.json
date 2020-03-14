@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/Devin1996/TOD_Admin#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "firebase": "^7.11.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2"
   },

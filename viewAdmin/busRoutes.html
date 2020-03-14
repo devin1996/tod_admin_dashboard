@@ -32,7 +32,7 @@
     <div class="wrapper" style="background-image: url('/design_files/images/accountSettingsback.jpg')">
         <div class="inner">
             <div class="image-holder">
-                <img src="/design_files/images/asettings.jpg">
+                <img src="/design_files/images/root_insert.jpg">
             </div>
             <form action="">
                 <h3>Enter Bus Root</h3>
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="form-wrapper">
-                    <input id="routeNo" type="text" placeholder="Number" class="form-control">
+                    <input id="routeNo" type="text" placeholder="Route Number" class="form-control">
                     <i class="zmdi zmdi zmdi-email"></i>
                 </div>
                 <div class="form-wrapper">
@@ -51,25 +51,58 @@
                     <i class="zmdi zmdi zmdi-email"></i>
                 </div>
 
+                <div class="form-wrapper">
+                    <input id="totalDistance" type="text" placeholder="Total Distance in Km" class="form-control">
+                    <i class="zmdi zmdi zmdi-email"></i>
+                </div>
+
+                <div class="form-wrapper">
+                    <select name="" id="busType" class="form-control">
+
+                        <option value="" disabled selected>Type</option>
+                        <option value="Highluxury">High Luxury</option>
+                        <option value="luxury">Luxury</option>
+                        <option value="semiLuxury">Semi Luxury</option>
+
+                        <i class="zmdi zmdi-caret-down" style="font: 17px;"></i>
+                    </select>
+                </div>
+
+                <div class="form-wrapper">
+                    <input id="avgSpeed" type="text" placeholder="Average Speed in Km/h" class="form-control">
+                    <i class="zmdi zmdi zmdi-email"></i>
+                </div>
+
+                <div class="form-wrapper">
+                    <input id="avgTime" type="time" placeholder="Average Time" class="form-control">
+                </div>
+
+                <div class="form-wrapper">
+                    <input id="efectiveDate" type="date" placeholder="Effective Date" class="form-control">
+                </div>
+
+
                 <div class="form-group container-login100-form-btn">
-                    <button onclick="writeData()" id="btn-update" type="button">
+                    <button id="btn-update" type="reset">
+                        <i class="zmdi zmdi-arrow-left"></i>
+                        Cancel
+
+                    </button>
+
+                    <button onclick="insertRoute()" id="btn-update" type="button">
                         Enter Route
                         <i class="zmdi zmdi-arrow-right"></i>
                     </button>
                 </div>
 
-                <div class="form-group container-login100-form-btn">
-                        <button onclick="writeData()" id="btn-update" type="reset">
-                            Cancel
-                            <i class="zmdi zmdi-arrow-left"></i>
-                        </button>
-                    </div>
+
 
             </form>
         </div>
     </div>
 
-    <script src="/api/routes/testroute.js"></script>
+    <script src="/api/routes/busRoutes.js"></script>
+    <!-- <script src="/api/routesMysql/busRoutesSQL.js"></script> -->
 
 
 </body>
