@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>TOD Admin- Update Account</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet"
+        href="design_files/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="design_files/css/style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
+
+</head>
+
+<body>
+    <div class="wrapper" style="background-image: url('design_files/images/accountSettingsback.jpg')">
+        <div class="inner">
+            <div class="image-holder">
+                <img src="design_files/images/asettings.jpg">
+            </div>
+            <form action="">
+                <h3>Account Details</h3>
+
+                <div class="form-group">
+                    <input id="firstName" type="text" placeholder="First Name" class="form-control">
+                    <input id="lastName" type="text" placeholder="Last Name" class="form-control">
+
+                </div>
+
+                <div class="form-wrapper">
+                    <select name="" id="city" class="form-control">
+
+                        <option value="" disabled selected>City</option>
+
+                        <option value="Ampara">Ampara</option>
+                        <option value="Anuradhapura">Anuradhapura</option>
+                        <option value="Badulla">Badulla</option>
+                        <option value="Batticaloa">Batticaloa</option>
+                        <option value="Colombo">Colombo</option>
+                        <option value="Galle">Galle</option>
+                        <option value="Gampaha">Gampaha</option>
+                        <option value="Hambantota">Hambantota</option>
+                        <option value="Jaffna">Jaffna</option>
+                        <option value="Kalutara">Kalutara</option>
+                        <option value="Kandy">Kandy</option>
+                        <option value="Kegalle">Kegalle</option>
+                        <option value="Kilinochchi">Kilinochchi</option>
+                        <option value="Kurunegala">Kurunegala</option>
+                        <option value="Mannar">Mannar</option>
+                        <option value="Matale">Matale</option>
+                        <option value="Matara">Matara</option>
+                        <option value="Monaragala">Monaragala</option>
+                        <option value="Mullaitivu">Mullaitivu</option>
+                        <option value="Nuwara Eliya">Nuwara Eliya</option>
+                        <option value="Polonnaruwa">Polonnaruwa</option>
+                        <option value="Puttalam">Puttalam</option>
+                        <option value="Ratnapura">Ratnapura</option>
+                        <option value="Trincomalee">Trincomalee</option>
+                        <option value="Vavuniya">Vavuniya</option>
+
+                        <i class="zmdi zmdi-caret-down" style="font: 17px;"></i>
+                    </select>
+                </div>
+
+                <div class="form-wrapper">
+                    <input id="phone" type="text" placeholder="Phone" class="form-control">
+                    <i class="zmdi zmdi-phone"></i>
+                </div>
+
+                <div class="form-wrapper">
+                    <select name="" id="city" class="form-control">
+
+                        <option value="" disabled selected>Gender</option>
+
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+
+                        <i class="zmdi zmdi-caret-down" style="font: 17px;"></i>
+                    </select>
+                </div>
+
+                <div class="form-wrapper">
+                    <input id="address" type="text" placeholder="Address" class="form-control">
+                    <i class="zmdi zmdi-pin"></i>
+                </div>
+
+                <div class="form-wrapper">
+                    <input id="bio" type="text" placeholder="Bio" class="form-control">
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+
+                <div class="form-group container-login100-form-btn">
+                    <button id="btn-update" type="button">
+                        Update
+                        <i class="zmdi zmdi-arrow-right"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+    <script>
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                var userID = firebase.auth().currentUser.uid;
+                firebase.database().ref('Admin/' + userID).once('value').then(function (snapshot) {
+                    if (snapshot.val()) {
+                        window.location.href = "MainPage.html";
+                    }
+
+                });
+            }
+        });
+    </script> 
+
+</body>

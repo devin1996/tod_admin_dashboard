@@ -71,11 +71,25 @@
 
     <script src="js/index.js"></script>
     <script>
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                window.location.href = "MainPage.html";
+        firebase.auth().onAuthStateChanged(function (user) 
+         {
+            if (user) 
+            {    
+                var userID =firebase.auth().currentUser.uid;
+                firebase.database().ref('Admin/' + userID).once('value').then(function(snapshot)
+                {
+                    if(snapshot.val())
+                    {
+                        window.location.href = "MainPage.html";
+                    }
+                    else
+                    {
+                        window.location.href = "accountSettings.html";
+                    }
+                });
             }
         });
-    </script>
 
+    </script>
+ 
 </body>

@@ -13,6 +13,7 @@ firebase.initializeApp(firebaseConfig);
 
 firebase.auth.Auth.Persistence.LOCAL;
 
+
 $("#btn-login").click(function () {
     var email = $("#email").val();
     var password = $("#password").val();
@@ -68,29 +69,92 @@ $("#btn-logout").click(function () {
 });
 
 $("#btn-reset-pw").click(function () {
-    
+
     var auth = firebase.auth();
     var email = $("#email").val();
 
-    if(email != "")
-    {
-        auth.sendPasswordResetEmail(email).then(function()
-        {
+    if (email != "") {
+        auth.sendPasswordResetEmail(email).then(function () {
             window.alert("Email has been sent to you, Please check and verify.");
         })
-        .catch(function(error)
-        {
-            var errorCode = error.code;
-            var errorMessage = error.message;
+            .catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
 
-            console.log(errorCode);
-            console.log(errorMessage);
+                console.log(errorCode);
+                console.log(errorMessage);
 
-            window.alert("Message: " + errorMessage);
-        });
+                window.alert("Message: " + errorMessage);
+            });
 
     }
-    else{
+    else {
         window.alert("Please enter your registered email for account");
     }
 });
+
+$("#btn-update").click(function () 
+{
+    var firstName = $("#firstName").val();
+    var lastName = $("#lastName").val();
+    var gender = $("#confirmPassword").val();
+    var phone = $("#phone").val();
+    var city = $("#city").val();
+    var address = $("#address").val();
+    var bio = $("#bio").val();
+
+    var rootRef = firebase.database().ref().child("Admin");
+    var userID = firebase.auth().currentUser.uid;
+    var usersRef = rootRef.child(userID);
+
+    if (firstName != "" && lastName != "" && gender != "" && phone != "" && city != "" && address != "" && bio != "") 
+    {
+        var userData =
+        {
+            "phone": phone,
+            "address": address,
+            "bio": bio,
+            "firstName": firstName,
+            "lastName": lastName,
+            "city": city,
+            "gender": gender, 
+        };
+
+        usersRef.set(userData, function(error) 
+        {
+            if(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+
+                console.log(errorCode);
+                console.log(errorMessage);
+
+                window.alert("Message: " + errorMessage);
+
+            }
+            else {
+                window.location.href = "MainPage.html";
+            }
+        });
+    }
+    else {
+        window.alert("Form is Incomplete. Fill out all the fields");
+    }
+
+});
+
+$("#btn-test").click(function () {
+    var name = $("#name").val();
+
+    var rootRef = firebase.database().ref().child("Admin");
+    // var userID = firebase.auth().currentUser.uid;
+    // var usersRef = rootRef.child(userID);
+    var userData =
+    {
+        "name": name,
+    }
+
+    rootRef.set(userData);
+    window.location.href = "index.html";
+});
+
