@@ -16,10 +16,10 @@
 
     <!-- MATERIAL DESIGN ICONIC FONT -->
     <link rel="stylesheet"
-        href="design_files/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+        href="/design_files/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
     <!-- STYLE CSS -->
-    <link rel="stylesheet" href="design_files/css/style.css">
+    <link rel="stylesheet" href="/design_files/css/style.css">
 
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
@@ -29,32 +29,47 @@
 </head>
 
 <body>
-    <div class="wrapper" style="background-image: url('design_files/images/accountSettingsback.jpg')">
+    <div class="wrapper" style="background-image: url('/design_files/images/accountSettingsback.jpg')">
         <div class="inner">
             <div class="image-holder">
-                <img src="design_files/images/asettings.jpg">
+                <img src="/design_files/images/asettings.jpg">
             </div>
             <form action="">
                 <h3>Enter Bus Root</h3>
 
-                <div class="form-group">
-                    <input id="routeNo" type="text" placeholder="Route Number" class="form-control">
-                    <input id="routeName" type="text" placeholder="Route Name" class="form-control">
+                <div class="form-wrapper">
+                    <input id="routeRegNo" type="text" placeholder="Register No" class="form-control">
+                    <i class="zmdi zmdi zmdi-email"></i>
+                </div>
 
+                <div class="form-wrapper">
+                    <input id="routeNo" type="text" placeholder="Number" class="form-control">
+                    <i class="zmdi zmdi zmdi-email"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input id="routeName" type="text" placeholder="Name" class="form-control">
+                    <i class="zmdi zmdi zmdi-email"></i>
                 </div>
 
                 <div class="form-group container-login100-form-btn">
-                    <button id="btn-update" type="button">
+                    <button onclick="writeData()" id="btn-update" type="button">
                         Enter Route
                         <i class="zmdi zmdi-arrow-right"></i>
                     </button>
                 </div>
 
+                <div class="form-group container-login100-form-btn">
+                        <button onclick="writeData()" id="btn-update" type="reset">
+                            Cancel
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </button>
+                    </div>
+
             </form>
         </div>
     </div>
 
-    <script src="C:\myAllNodeProject\tod_app\api\routes\busRoutes.js"></script>
-   
+    <script src="/api/routes/testroute.js"></script>
+
 
 </body>

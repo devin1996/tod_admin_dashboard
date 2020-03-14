@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/Devin1996/TOD_Admin/issues"
   },
-  "homepage": "https://github.com/Devin1996/TOD_Admin#readme"
+  "homepage": "https://github.com/Devin1996/TOD_Admin#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {}
 }

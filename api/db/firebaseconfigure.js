@@ -9,25 +9,6 @@ var firebaseConfig =
     appId: "1:1028667957586:web:698a3ac97b71487e131a8b"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+var db = firebase.initializeApp(firebaseConfig);
 
-// function writeData(){
-//     firebase.database().ref("sdldk").set({
-//       al:{
-//       name: document.getElementById("name").value,
-//       age: document.getElementById("age").value
-//     }
-//     });
-//   }
-
-//   $("#btn-test").click(function () {
-//     var name = $("#name").val();
-//     var age = $("#age").val();
-    
-//     firebase.database().ref("sdldk").set({
-//         al:{
-//         name: document.getElementById(name).value,
-//         age: document.getElementById(age).value
-//       }
-//       });
-//     });
+module.exports = db;
