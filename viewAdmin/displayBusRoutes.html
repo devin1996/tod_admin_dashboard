@@ -76,7 +76,7 @@ integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="ano
 
           var database = firebase.database();
           
-              database.ref("routes").child("busRoutes").once("value", function(snapshot){
+              database.ref("routes").child("busRoutes").orderByKey().once("value", function(snapshot){
                 if (snapshot.exists()) {
                   var content = '';
           
