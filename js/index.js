@@ -93,11 +93,13 @@ $("#btn-reset-pw").click(function () {
     }
 });
 
+
+
 $("#btn-update").click(function () 
 {
     var firstName = $("#firstName").val();
     var lastName = $("#lastName").val();
-    var gender = $("#confirmPassword").val();
+    var gender = $("#gender").val();
     var phone = $("#phone").val();
     var city = $("#city").val();
     var address = $("#address").val();
