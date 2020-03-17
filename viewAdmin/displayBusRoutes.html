@@ -58,30 +58,13 @@ integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="ano
 	</div>
 <script src="/api/db/firebaseconfigure.js"></script>
     <script>
-            // Your web app's Firebase configuration
-            // var firebaseConfig = {
-            //       apiKey: "AIzaSyDVSNwiJxw-godBSv-gzFzYgNUXZU81ksY",
-            //   authDomain: "ptms-4b687.firebaseapp.com",
-            //   databaseURL: "https://ptms-4b687.firebaseio.com",
-            //   projectId: "ptms-4b687",
-            //   storageBucket: "ptms-4b687.appspot.com",
-            //   messagingSenderId: "1028667957586",
-            //   appId: "1:1028667957586:web:698a3ac97b71487e131a8b"
-            // };
-            // Initialize Firebase
-            // firebase.initializeApp(firebaseConfig);
-            // firebase.analytics();
-          
-          
-
-          var database = firebase.database();
-          
+        
+          var database = firebase.database();     
               database.ref("routes").child("busRoutes").orderByKey().once("value", function(snapshot){
                 if (snapshot.exists()) {
                   var content = '';
           
-                snapshot.forEach(function (childSnapshot){
-          
+                snapshot.forEach(function (childSnapshot){        
                   
                   var val  = childSnapshot.val();
                   
@@ -98,17 +81,13 @@ integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="ano
           
                 });
           
-          
                  $('#table1').append(content);
           
           
               }
           
             });
-          
-          // }
 
-          
           </script>
 	
 
