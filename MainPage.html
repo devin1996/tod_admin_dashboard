@@ -18,6 +18,23 @@
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
+
+    <script>
+        var firebaseConfig = {
+                        apiKey: "AIzaSyDVSNwiJxw-godBSv-gzFzYgNUXZU81ksY",
+                        authDomain: "ptms-4b687.firebaseapp.com",
+                        databaseURL: "https://ptms-4b687.firebaseio.com",
+                        projectId: "ptms-4b687",
+                        storageBucket: "ptms-4b687.appspot.com",
+                        messagingSenderId: "1028667957586",
+                        appId: "1:1028667957586:web:698a3ac97b71487e131a8b",
+                        measurementId: "G-DPJE0QW44H"
+                    };
+                    // Initialize Firebase
+                    if (!firebase.apps.length) {
+                        firebase.initializeApp(firebaseConfig);
+                    }
+    </script>
 </head>
 
 <body class="h-100">
@@ -209,9 +226,9 @@
                                     var userName;
                                     firebase.database().ref('Admin/' + user.uid).once('value').then(function (snapshot) {
                                         var fName = (snapshot.val() && snapshot.val().firstName);
-                                        var sName = (snapshot.val() && snapshot.val().secondName);
+                                        var sName = (snapshot.val() && snapshot.val().lastName);
 
-                                        userName = fName + " " + sName;
+                                        userName = fName + "_" + sName;
                                     });
 
                                     uploadTask.snapshot.ref.getDownloadURL().then(function (downloadUrl) {
@@ -266,63 +283,79 @@
                     }
 
                     //start rertrive data from the datbase 
+                    var firebaseConfig = {
+                        apiKey: "AIzaSyDVSNwiJxw-godBSv-gzFzYgNUXZU81ksY",
+                        authDomain: "ptms-4b687.firebaseapp.com",
+                        databaseURL: "https://ptms-4b687.firebaseio.com",
+                        projectId: "ptms-4b687",
+                        storageBucket: "ptms-4b687.appspot.com",
+                        messagingSenderId: "1028667957586",
+                        appId: "1:1028667957586:web:698a3ac97b71487e131a8b",
+                        measurementId: "G-DPJE0QW44H"
+                    };
+                    // Initialize Firebase
+                    if (!firebase.apps.length) {
+                        firebase.initializeApp(firebaseConfig);
+                    }
 
-                    var dblogs = firebase.database().child("Promotions").orderByChild("counter");
+                    //firebase.initializeApp(firebaseConfig);
 
-                    dbBlogs.on("value", function (blogs) {
+                    firebase.auth.Auth.Persistence.LOCAL;
+
+                    var dblogs = firebase.database().ref().child("Promotions").orderByChild("counter");
+
+                    dblogs.on("value", function (blogs) {
                         if (blogs.exists()) {
                             var blogsHtml = "";
 
-                            blogs.fotEach(function (singleBlog) {
+                            blogs.forEach(function (singleBlog) {
+                                
                                 counter = counter + 1;
 
                                 blogsHtml += "<div class='jumbotron bg-light text-dark border border-dark'>";
-                                    
-                                    blogsHtml += "<div> <img width='805' height='450'/>";
-                                            blogsHtml += blogs.val.image;
-                                    blogsHtml += "</div><br>";
 
-                                    blogsHtml += "<div class='row'>";
-                                            blogsHtml += "<div class='col-sm-5'> <pstyle='grey';>"
-                                                +"published by: " +blogs.val().userName
-                                                +"</p></div>" +
+                                blogsHtml += "<div> <img width='1000px' height='550px' src='";
+                                blogsHtml += singleBlog.val().image;
+                                blogsHtml += "'/></div><br>";
 
-                                                "<div class='col-sm-5'> <pstyle='grey';>"
-                                                +"Time : " +blogs.val().time
-                                                +"</p></div>" +
+                                blogsHtml += "<div class='row'>";
+                                blogsHtml += "<div class='col-sm-5'> <p style='grey';>"
+                                    + "published by: " + singleBlog.val().userName
+                                    + "</p></div>" +
 
-                                                "<div class='col-sm-5'> <pstyle='grey';>"
-                                                +"Time : " +blogs.val().date
-                                                +"</p></div>" 
-                                                ;
+                                    "<div class='col-sm-3'> <p style='grey';>"
+                                    + "Time : " + singleBlog.val().time
+                                    + "</p></div>" +
+
+                                    "<div class='col-sm-4'> <p style='grey; margin-left: 15px;'>"
+                                    + "Date : " + singleBlog.val().date
+                                    + "</p></div>"
+                                    ;
 
 
-                                        logsHtml += "</div><br>";
+                                blogsHtml += "</div><br>";
 
-                                    blogsHtml += "<div style='text-align: justify; color: black;'>";
-                                            blogsHtml += blogs.val().desc;
-                                    blogsHtml += "</div><br>";
+                                blogsHtml += "<div style='text-align: justify; color: black;'>";
+                                blogsHtml += singleBlog.val().desc;
+                                blogsHtml += "</div><br>";
 
                                 blogsHtml += "</div>";
-                            })
-
+                            });
+                            $("#blogs").html(blogsHtml);
 
                         }
                     });
 
-
-
                 //end recieve data from the database
-
                 </script>
-
 
             </div>
         </div>
     </div>
 
-    <script src="js/index.js"></script>
+    <!-- <script src="js/index.js"></script> -->
     <script>
+
         firebase.auth().onAuthStateChanged(function (user) {
             if (!user) {
                 window.location.href = "signin.html";
