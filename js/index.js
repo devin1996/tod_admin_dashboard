@@ -164,3 +164,13 @@ $("#btn-test").click(function () {
     window.location.href = "index.html";
 });
 
+function switchView(view)
+{
+    $.get({
+        url:view,
+        cache:false,
+    })
+    .then(function(data){
+        $("#container").html(data);
+    });
+}
