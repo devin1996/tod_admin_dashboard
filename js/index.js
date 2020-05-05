@@ -17,7 +17,7 @@ if (!firebase.apps.length) {
 
 firebase.auth.Auth.Persistence.LOCAL;
 
-
+//Admin Login for the system 
 $("#btn-login").click(function () {
     var email = $("#email").val();
     var password = $("#password").val();
@@ -39,6 +39,7 @@ $("#btn-login").click(function () {
     }
 });
 
+//Admin Register for the system
 $("#btn-signup").click(function () {
     var email = $("#email").val();
     var password = $("#password").val();
@@ -67,11 +68,12 @@ $("#btn-signup").click(function () {
     }
 });
 
-
+//Logout userauth
 $("#btn-logout").click(function () {
     firebase.auth().signOut();
 });
 
+//password reset userauth
 $("#btn-reset-pw").click(function () {
 
     var auth = firebase.auth();
