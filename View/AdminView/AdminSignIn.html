@@ -8,10 +8,10 @@
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="/design_files/images/logo.jpg" />
 
-       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-    
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -38,6 +38,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
 
+
 </head>
 
 <body>
@@ -47,7 +48,10 @@
             <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
                 <form class="login100-form validate-form flex-sb flex-w" action="">
                     <span class="login100-form-title p-b-32">
-                        Admin Login
+                        TOD
+                        <span class="txt1 p-b-11">
+                            Admin Login
+                        </span>
                     </span>
 
                     <span class="txt1 p-b-11">
@@ -76,19 +80,26 @@
                         </div>
 
                         <div>
-                            <a href="#" class="txt3">
+                            <a href="admin-forgot-password.html" class="txt3">
                                 Forgot Password?
                             </a>
                         </div>
                     </div>
 
-                    <div class="container-login100-form-btn">
+                    <div class="container-login100-form-btn" style="text-align: center">
                         <button class="login100-form-btn" id="btn-login" type="button">
                             Login
                         </button>
                     </div>
 
                 </form>
+                <div style="text-align: right">
+                    <br>
+                    <a href="AdminSignUp.html" class="txt3" >
+                        Needs to get Registered ? click here.
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
@@ -100,7 +111,8 @@
     <!--===============================================================================================-->
     <script src="/design_files/Forms/js/main.js"></script>
 
-    <script src="/js/index.js"></script>
+    <script src="/js/database.js"></script>
+    <script src="/js/user.js"></script>
     <script>
 
         firebase.auth().onAuthStateChanged(function (user) {
