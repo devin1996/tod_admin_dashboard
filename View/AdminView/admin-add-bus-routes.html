@@ -30,6 +30,10 @@
 
 <body>
     <div class="wrapper" style="background-image: url('/design_files/images/accountSettingsback.jpg')">
+        <div id="nav-placeholder">
+
+        </div>
+
         <div class="inner">
             <div class="image-holder">
                 <img src="/design_files/images/root_insert.jpg">
@@ -101,8 +105,12 @@
         </div>
     </div>
 
-    <script src="/api/routes/busRoutes.js"></script>
-    <!-- <script src="/api/routesMysql/busRoutesSQL.js"></script> -->
+    <script src="/js/database.js"></script>
+    <script src="/js/busroutes.js"></script>
 
-
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("admin-navbar.html");
+        });
+    </script>
 </body>

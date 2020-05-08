@@ -29,7 +29,10 @@ integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="ano
 <!--===============================================================================================-->
 </head>
 <body>
-	
+    <div id="nav-placeholder">
+
+    </div>
+
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
@@ -56,7 +59,8 @@ integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="ano
 			</div>
 		</div>
 	</div>
-<script src="/api/db/firebaseconfigure.js"></script>
+    <script src="/js/database.js"></script>
+    <script src="/js/busroutes.js"></script>
     <script>
         
           var database = firebase.database();     
@@ -99,5 +103,11 @@ integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="ano
 <!--===============================================================================================-->
 	<script src="/design_files/table/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
+<script>
+    $(function () {
+        $("#nav-placeholder").load("admin-navbar.html");
+    });
+</script>
+
 </body>
 </html>

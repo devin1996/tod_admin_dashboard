@@ -30,7 +30,14 @@
 
 <body>
     <div class="wrapper" style="background-image: url('/design_files/images/accountSettingsback.jpg')">
+        <div id="nav-placeholder">
+
+        </div>
+
         <div class="inner">
+
+
+
             <div class="image-holder">
                 <img src="/design_files/images/root_insert.jpg">
             </div>
@@ -72,12 +79,15 @@
                 </div>
 
 
-                <script src="/api/db/firebaseconfigure.js"></script>
-                <script src="/api/routes/timeSlots.js"></script>
-
+                <script src="/js/database.js"></script>
+                <script src="/js/bustimeslots.js"></script>
 
             </form>
         </div>
     </div>
-
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("admin-navbar.html");
+        });
+    </script>
 </body>
