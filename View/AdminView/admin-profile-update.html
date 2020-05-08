@@ -3,16 +3,30 @@
 
 <head>
 
-    <title>TOD Admin- Update Account</title>
+    <title>TOD Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/design_files/images/logo.jpg" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+        integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
 
     <!-- MATERIAL DESIGN ICONIC FONT -->
     <link rel="stylesheet"
@@ -29,10 +43,10 @@
 </head>
 
 <body>
-    <div class="wrapper" style="background-image: url('/design_files/images/accountSettingsback.jpg')">
-        <div class="inner">
-            <div class="image-holder">
-                <img src="/design_files/images/asettings.jpg">
+    <div class="wrapper" style="background-color: #ebebeb";>
+        <div class="inner" style="border-radius: 15px";>
+            <div class="image-holder" >
+                <img src="/design_files/images/asettings.jpg" >
             </div>
             <form action="">
                 <h3>Account Details</h3>
@@ -74,13 +88,13 @@
                         <option value="Trincomalee">Trincomalee</option>
                         <option value="Vavuniya">Vavuniya</option>
 
-                        <i class="zmdi zmdi-caret-down" style="font: 17px;"></i>
                     </select>
+                    <br>
                 </div>
 
                 <div class="form-wrapper">
                     <input id="phone" type="text" placeholder="Phone" class="form-control">
-                    <i class="zmdi zmdi-phone"></i>
+                    <br>
                 </div>
 
                 <div class="form-wrapper">
@@ -91,24 +105,22 @@
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
 
-                        <i class="zmdi zmdi-caret-down" style="font: 17px;"></i>
                     </select>
+                    <br>
                 </div>
 
                 <div class="form-wrapper">
                     <input id="address" type="text" placeholder="Address" class="form-control">
-                    <i class="zmdi zmdi-pin"></i>
+                    <br>
                 </div>
 
                 <div class="form-wrapper">
                     <input id="bio" type="text" placeholder="Bio" class="form-control">
-                    <i class="zmdi zmdi-account"></i>
                 </div>
 
                 <div class="form-group container-login100-form-btn">
-                    <button id="btn-update" type="button">
+                    <button  class="login100-form-btn" id="btn-update" type="button">
                         Update
-                        <i class="zmdi zmdi-arrow-right"></i>
                     </button>
                 </div>
 
@@ -116,7 +128,9 @@
         </div>
     </div>
 
-    <script src="/js/index.js"></script>
+    <script src="/js/database.js"></script>
+    <script src="/js/user.js"></script>
+    
     <script>
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {

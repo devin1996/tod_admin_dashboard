@@ -119,7 +119,7 @@ $("#btn-update").click(function () {
 
             }
             else {
-                window.location.href = "MainPage.html";
+                window.location.href = "admin-home.html";
             }
         });
     }

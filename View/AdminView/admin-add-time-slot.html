@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>TOD Admin - Forgot Password</title>
+    <title>Bus Roots</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -16,7 +16,7 @@
 
     <!-- MATERIAL DESIGN ICONIC FONT -->
     <link rel="stylesheet"
-        href="design_files/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+        href="/design_files/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="/design_files/css/style.css">
@@ -25,47 +25,59 @@
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
+
 </head>
 
 <body>
-    <div class="wrapper" style="background-image: url('/design_files/images/forgetpasswordcover.jpg')">
-        <div class="inner" style="border-radius: 15px;">
+    <div class="wrapper" style="background-image: url('/design_files/images/accountSettingsback.jpg')">
+        <div class="inner">
             <div class="image-holder">
-                <img src="/design_files/images/forget password.jpg">
+                <img src="/design_files/images/root_insert.jpg">
             </div>
             <form action="">
-                <h3>Forget Password</h3>
+                <h3>Enter Time Slot</h3>
+
+                <div class="form-wrapper">
+                    <input id="routeRegNo" type="text" placeholder="Register No" class="form-control">
+                    <i class="zmdi zmdi zmdi-email"></i>
+                </div>
 
                 <div class="form-group">
-                    <p style="text-align: justify">Please enter your email address we will send recover information to your email</p>
+                    <input id="from" type="text" placeholder="From" class="form-control">
+                    <input id="to" type="text" placeholder="To" class="form-control">
+
                 </div>
+
                 <div class="form-wrapper">
-                    <input id="email" type="email" placeholder="Email Address" class="form-control">
+                    <input id="trackNo" type="text" placeholder="Track Number" class="form-control">
                     <i class="zmdi zmdi zmdi-email"></i>
                 </div>
 
 
+                <div class="form-wrapper">
+                    <p>Depature Time </p> <input id="departureTime" type="time" placeholder="" class="form-control">
+                </div>
+
+                <div class="form-wrapper">
+                    <p>Arrival Time </p> <input id="arrivalTime" type="time" placeholder="" class="form-control">
+                </div>
+
 
                 <div class="form-group container-login100-form-btn">
-                    <button id="btn-reset-pw" type="button">
-                        Reset Password
+
+                    <button onclick="insertBusTimeSlot()" id="btn-update" type="button">
+                        Enter Route
                         <i class="zmdi zmdi-arrow-right"></i>
                     </button>
                 </div>
+
+
+                <script src="/api/db/firebaseconfigure.js"></script>
+                <script src="/api/routes/timeSlots.js"></script>
 
 
             </form>
         </div>
     </div>
 
-    <script src="js/index.js"></script>
-    <script>
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                window.location.href = "MainPage.html";
-            }
-        });
-    </script>
 </body>
-
-</html> 
