@@ -29,12 +29,19 @@
 </head>
 
 <body>
-    <div class="wrapper" style="background-image: url('/design_files/images/accountSettingsback.jpg')">
+    <div class="wrapper"  style="background-color: #ebebeb">
+        
         <div id="nav-placeholder">
 
         </div>
 
-        <div class="inner">
+        <script>
+            $(function () {
+                $("#nav-placeholder").load("admin-navbar.html");
+            });
+        </script>
+
+        <div class="inner" style="border-radius: 15px;">
 
 
 
@@ -85,9 +92,5 @@
             </form>
         </div>
     </div>
-    <script>
-        $(function () {
-            $("#nav-placeholder").load("admin-navbar.html");
-        });
-    </script>
+
 </body>
