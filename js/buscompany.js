@@ -1,7 +1,7 @@
 function insertBusCompany() {
     var companyRegNo = document.getElementById("companyRegNo").value;
 
-    var companyRandomKey = companyRegNo + "rbr";
+    var companyRandomKey = companyRegNo+"rbr";
 
     firebase.database().ref("Company").child("busCompany").child(companyRandomKey).set({
 
