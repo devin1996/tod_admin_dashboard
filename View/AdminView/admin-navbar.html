@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="admin-home.html">TOD Admin</a>
+    <a class="navbar-brand" onclick="switchView('add-promotion-and-view.html')">TOD Admin</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -53,6 +53,15 @@
             </div>
           </li>
 
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Promotions
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" onclick="switchView('modify-promotions.html')">Edit or Remove</a>
+            </div>
+          </li>
+
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -78,6 +87,8 @@
 
 <script src="/js/database.js"></script>
 <script src="/js/user.js"></script>
+<script src="/js/index.js"></script>
+
 
 <script>
     firebase.auth().onAuthStateChanged(function (user) {
