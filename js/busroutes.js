@@ -4,10 +4,10 @@ function insertRoute() {
 
     var randomKey = routeRegNo + "rbr";
 
-    firebase.database().ref("routes").child("busRoutes").child(randomKey).set({
+    firebase.database().ref("routes").child("busRoute").child(randomKey).set({
 
         routeRegNo: routeRegNo,
-        routeNo: document.getElementById("routeNo").value,
+        routeNo: document.getElementById("routeNo001").value,
         routeName: document.getElementById("routeName").value,
         totalDistance: document.getElementById("totalDistance").value,
         avgSpeed: document.getElementById("avgSpeed").value,
@@ -21,7 +21,7 @@ function insertRoute() {
 
 var database = firebase.database();
 
-database.ref("routes").child("busRoutes").once("value", function (snapshot) {
+database.ref("routes").child("busRoute").once("value", function (snapshot) {
     if (snapshot.exists()) {
         var content = '';
 

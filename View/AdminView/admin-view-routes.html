@@ -63,34 +63,34 @@ integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="ano
     <script src="/js/busroutes.js"></script>
     <script>
         
-          var database = firebase.database();     
-              database.ref("routes").child("busRoutes").orderByKey().once("value", function(snapshot){
-                if (snapshot.exists()) {
-                  var content = '';
+        //   var database = firebase.database();     
+        //       database.ref("routes").child("busRoute").orderByKey().once("value", function(snapshot){
+        //         if (snapshot.exists()) {
+        //           var content = '';
           
-                snapshot.forEach(function (childSnapshot){        
+        //         snapshot.forEach(function (childSnapshot){        
                   
-                  var val  = childSnapshot.val();
+        //           var val  = childSnapshot.val();
                   
-                  content += '<tr>';
-                  content += '<td>'+val.routeRegNo+'rbr</td>';
-                  content += '<td>'+val.routeNo+'</td>';
-                  content += '<td>'+val.routeName+'</td>';
-                  content += '<td>'+val.totalDistance+' Km</td>';
-                  content += '<td>'+val.busType+'</td>';
-                  content += '<td>'+val.avgSpeed+' Km/h</td>';
-                  content += '<td>'+val.avgTime+' hrs</td>';
-                  content += '<td>'+val.efectiveDate+'</td>';
-                  content += '</tr>';
+        //           content += '<tr>';
+        //           content += '<td>'+val.routeRegNo+'rbr</td>';
+        //           content += '<td>'+val.routeNo+'</td>';
+        //           content += '<td>'+val.routeName+'</td>';
+        //           content += '<td>'+val.totalDistance+' Km</td>';
+        //           content += '<td>'+val.busType+'</td>';
+        //           content += '<td>'+val.avgSpeed+' Km/h</td>';
+        //           content += '<td>'+val.avgTime+' hrs</td>';
+        //           content += '<td>'+val.efectiveDate+'</td>';
+        //           content += '</tr>';
           
-                });
+        //         });
           
-                 $('#table1').append(content);
+        //          $('#table1').append(content);
           
           
-              }
+        //       }
           
-            });
+        //     });
 
           </script>
 	
