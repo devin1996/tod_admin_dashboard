@@ -73,7 +73,7 @@
 
         <thead>
             <tr class="header">
-                <th style="width:20%;">Track No</th>
+                <th style="width:20%;">Ride No</th>
                 <th style="width:20%;">From</th>
                 <th style="width:20%;">To</th>
                 <th style="width:20%;">Departure Time</th>
@@ -92,7 +92,7 @@
     <script src="/js/database.js"></script>
     <script>
         var database = firebase.database();
-        database.ref("timeSlots").child("busTimes").child("busTimeDislpay").once("value", function (snapshot) {
+        database.ref("timeSlots").child("busTime").once("value", function (snapshot) {
             if (snapshot.exists()) {
                 var content = '';
 
@@ -101,7 +101,7 @@
                     var val = childSnapshot.val();
 
                     content += '<tr>';
-                    content += '<td>' + val.trackNo + '</td>';
+                    content += '<td>' + val.rideNo + '</td>';
                     content += '<td>' + val.from + '</td>';
                     content += '<td>' + val.to + '</td>';
                     content += '<td>' + val.depTime + ' hrs</td>';
