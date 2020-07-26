@@ -1,0 +1,173 @@
+<html>
+
+<head>
+    <title>Bus Reports</title>
+    <!--===============================================================================================-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <!--===============================================================================================-->
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
+    <!--====================================================================================================-->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #To {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+        #myTable th,
+        #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        #myTable tr.header,
+        #myTable tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="nav-placeholder">
+
+    </div>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by User Mobile No" title="From">
+    <input type="text" id="To" onkeyup="functionTo()" placeholder="Search by Date" title="To">
+
+    <table id="myTable">
+
+        <thead>
+            <tr class="header">
+                <th style="width:20%;">Bus QR ID</th>
+                <th style="width:20%;">User mobile No</th>
+                <th style="width:20%;">Report Issue</th>
+                <th style="width:20%;">Date</th>
+                <th style="width:20%;">Time</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+        </tbody>
+
+
+    </table>
+
+
+    <script src="/js/database.js"></script>
+    <script>
+        var database = firebase.database();
+        database.ref("report").child("reportBus").once("value", function (snapshot) {
+            if (snapshot.exists()) {
+                var content = '';
+
+                snapshot.forEach(function (childSnapshot) {
+
+
+                    var val = childSnapshot.val();
+
+                    content += '<tr>';
+                    content += '<td>' + val.qrValue + '</td>';
+                    content += '<td>' + val.userPhone + '</td>';
+                    content += '<td>' + val.reportIssue + '</td>';
+                    content += '<td>' + val.reportDate + '</td>';
+                    content += '<td>' + val.reportTime + '</td>';
+                    content += '</tr>';
+
+                });
+
+
+                $('#myTable').append(content);
+
+
+            }
+
+        });
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+        }
+
+        function functionTo() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("To");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+        }
+
+    </script>
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("admin-navbar.html");
+        });
+    </script>
+</body>
+
+</html>

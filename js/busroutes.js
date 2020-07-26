@@ -39,6 +39,7 @@ database.ref("routes").child("busRoute").once("value", function (snapshot) {
             content += '<td>' + val.avgSpeed + '</td>';
             content += '<td>' + val.avgTime + '</td>';
             content += '<td>' + val.efectiveDate + '</td>';
+            content += '<td> <a href="">Edit</a> </td>';
             content += '</tr>';
 
         });
