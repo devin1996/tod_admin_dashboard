@@ -95,7 +95,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Logout</button>
+            <button type="button" class="btn btn-danger" id="btn-logout">Logout</button>
           </div>
         </div>
       </div>
@@ -133,14 +133,19 @@
             <h2>Settings</h2>
         </div>
 
-        <div id="Settings" class="w3-container city" style="display:none">
+        <div id="settings" class="w3-container city" style="display:none">
             <h2>Settings</h2>
         </div>
 
         <script>
             $(function () {
-                $("#manage-routes").load("time-slots.html");
-                $("#manage-reviews").load("manage-routes.html");
+                $("#manage-routes").load("manage-routes.html");
+                $("#manage-reviews").load("manage-reviews.html");
+                //$("#dashboard-home").load("manage-routes.html");
+                $("#manage-timeslots").load("manage-timeslots.html");
+                $("#manage-buses").load("manage-buses.html");
+                $("#manage-reports").load("manage-reports.html");
+                $("#settings").load("settings.html");
             });
         </script>
       
@@ -199,5 +204,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="cdbscript.js"></script>
+
+    <script src="/js/database.js"></script>
+    <script src="/js/liot/liot-user.js"></script>
+    <script>
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (!user) {
+                window.location.href = "cdb-admin-signin.html";
+            }
+        });
+    </script>
+
   </body>
 </html>
