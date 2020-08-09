@@ -1,220 +1,261 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="title icon" href="images/logo5.jpeg">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link rel="stylesheet" href="cdbstyle.css">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="title icon" href="images/logo5.jpeg">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"
+    integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
+    crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="cdbstyle.css">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
     integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 
-        <!--===============================================================================================-->
-        <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
-        <!--====================================================================================================-->
+  <!--===============================================================================================-->
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
+  <!--====================================================================================================-->
 
-    <title>TOD - Admin Dashboard</title>
-  </head>
-  <body>
-    
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-md navbar-light">
-      <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <div class="container-fluid">
-          <div class="row">
-            <!-- sidebar -->
-            <div class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
-              <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border">TOD Admin Dashboard</a>
-              <div class="bottom-border pb-3">
-                <img src="images/KVGHcrop.jpg" width="50" class="rounded-circle mr-3">
-                <a href="#" class="text-white">Devin Chandula</a>
-              </div>
-              <ul class="navbar-nav flex-column mt-4">
-                <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link" onclick="openCity(event, 'dashboard-home')"><i class="fas fa-home text-light fa-lg mr-3"></i>Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link" onclick="openCity(event, 'manage-routes')"><i class="fas fa-user text-light fa-lg mr-3"></i>Manage Routes</a></li>
-                <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link" onclick="openCity(event, 'manage-timeslots')"><i class="fas fa-envelope text-light fa-lg mr-3"></i>Manage TimeSlots</a></li>
-                <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link" onclick="openCity(event, 'manage-buses')"><i class="fas fa-shopping-cart text-light fa-lg mr-3"></i>Manage Drivers</a></li>
-                <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link" onclick="openCity(event, 'manage-buses')"><i class="fas fa-chart-line text-light fa-lg mr-3"></i>Manage Buses</a></li>
-                <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link" onclick="openCity(event, 'manage-reports')"><i class="fas fa-chart-bar text-light fa-lg mr-3"></i>Student Reports</a></li>
-                <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link" onclick="openCity(event, 'manage-reviews')"><i class="fas fa-chart-bar text-light fa-lg mr-3"></i>Student Reviews</a></li>
-                <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link" onclick="openCity(event, 'settings')"><i class="fas fa-wrench text-light fa-lg mr-3"></i>Settings</a></li>
-              </ul>
-            </div>
-            <!-- end of sidebar -->
+  <title>TOD - Admin Dashboard</title>
+</head>
 
-            <!-- top-nav -->
-            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
-              <div class="row align-items-center">
-                <div class="col-md-4">
-                  <h4 class="text-light text-uppercase mb-0">LIOT</h4>
-                </div>
-                <div class="col-md-5">
-                  <form>
-                    <div class="input-group">
-                      <input type="text" class="form-control search-input" placeholder="Search...">
-                      <button type="button" class="btn btn-white search-button"><i class="fas fa-search text-danger"></i></button>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-md-3">
-                  <ul class="navbar-nav">
-                    <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"><i class="fas fa-comments text-muted fa-lg"></i></a></li>
-                    <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"><i class="fas fa-bell text-muted fa-lg"></i></a></li>
-                    <li class="nav-item ml-md-auto"><a href="#" class="nav-link" data-toggle="modal" data-target="#sign-out"><i class="fas fa-sign-out-alt text-danger fa-lg"></i></a></li>
-                  </ul>
-                </div>
-              </div>
+<body>
+
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-md navbar-light">
+    <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- sidebar -->
+          <div class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+            <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border">TOD Admin
+              Dashboard</a>
+            <div class="bottom-border pb-3">
+              <img src="images/KVGHcrop.jpg" width="50" class="rounded-circle mr-3">
+              <a href="#" class="text-white">Devin Chandula</a>
             </div>
-            <!-- end of top-nav -->
+            <ul class="navbar-nav flex-column mt-4">
+              <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
+                  onclick="openCity(event, 'dashboard-home')"><i
+                    class="fas fa-home text-light fa-lg mr-3"></i>Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
+                  onclick="openCity(event, 'manage-routes')"><i class="fas fa-user text-light fa-lg mr-3"></i>Manage
+                  Routes</a></li>
+              <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
+                  onclick="openCity(event, 'manage-timeslots')"><i
+                    class="fas fa-envelope text-light fa-lg mr-3"></i>Manage TimeSlots</a></li>
+              <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
+                  onclick="openCity(event, 'manage-buses')"><i
+                    class="fas fa-shopping-cart text-light fa-lg mr-3"></i>Manage Drivers</a></li>
+              <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
+                  onclick="openCity(event, 'manage-buses')"><i
+                    class="fas fa-chart-line text-light fa-lg mr-3"></i>Manage Buses</a></li>
+              <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
+                  onclick="openCity(event, 'manage-reports')"><i
+                    class="fas fa-chart-bar text-light fa-lg mr-3"></i>Student Reports</a></li>
+              <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
+                  onclick="openCity(event, 'manage-reviews')"><i
+                    class="fas fa-chart-bar text-light fa-lg mr-3"></i>Student Reviews</a></li>
+              <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
+                  onclick="openCity(event, 'settings')"><i class="fas fa-wrench text-light fa-lg mr-3"></i>Settings</a>
+              </li>
+            </ul>
           </div>
+          <!-- end of sidebar -->
+
+          <!-- top-nav -->
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <h4 class="text-light text-uppercase mb-0">LIOT</h4>
+              </div>
+              <div class="col-md-5">
+                <form>
+                  <div class="input-group">
+                    <input type="text" class="form-control search-input" placeholder="Search...">
+                    <button type="button" class="btn btn-white search-button"><i
+                        class="fas fa-search text-danger"></i></button>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-3">
+                <ul class="navbar-nav">
+                  <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"><i
+                        class="fas fa-comments text-muted fa-lg"></i></a></li>
+                  <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"><i
+                        class="fas fa-bell text-muted fa-lg"></i></a></li>
+                  <li class="nav-item ml-md-auto"><a href="#" class="nav-link" data-toggle="modal"
+                      data-target="#sign-out"><i class="fas fa-sign-out-alt text-danger fa-lg"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- end of top-nav -->
         </div>
       </div>
-    </nav>
-    <!-- end of navbar -->
+    </div>
+  </nav>
+  <!-- end of navbar -->
 
-    <!-- modal -->
-    <div class="modal fade" id="sign-out">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Want to leave?</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            Press logout to leave
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
-            <button type="button" class="btn btn-danger" id="btn-logout">Logout</button>
+  <!-- modal -->
+  <div class="modal fade" id="sign-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Want to leave?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          Press logout to leave
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+          <button type="button" class="btn btn-danger" id="btn-logout">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- end of modal -->
+
+  <div id="dashboard-home" class="w3-container city" style="display:none">
+
+  </div>
+
+  <div id="manage-routes" class="w3-container city" style="display:none">
+
+  </div>
+
+  <div id="manage-timeslots" class="w3-container city" style="display:none">
+
+  </div>
+
+  <div style="margin-left:270px; margin-top:50px">
+    <div class="w3-padding">Cutomized Transport Management System For Lanaka Institute of Technology</div>
+
+
+
+
+
+
+
+    <div id="manage-drivers" class="w3-container city" style="display:none">
+      <h2>Manage Drivers</h2>
+    </div>
+
+    <div id="manage-buses" class="w3-container city" style="display:none">
+      <h2>Manage Buses</h2>
+    </div>
+
+    <div id="manage-reports" class="w3-container city" style="display:none">
+      <h2>Student Reports</h2>
+    </div>
+
+    <div id="manage-reviews" class="w3-container city" style="display:none">
+      <h2>Settings</h2>
+    </div>
+
+    <div id="settings" class="w3-container city" style="display:none">
+      <h2>Settings</h2>
+    </div>
+
+    <script>
+      $(function () {
+        $("#manage-routes").load("manage-routes.html");
+        $("#manage-reviews").load("manage-reviews.html");
+        $("#dashboard-home").load("dashboard-home.html");
+        $("#manage-timeslots").load("manage-timeslots.html");
+        $("#manage-buses").load("manage-buses.html");
+        $("#manage-reports").load("manage-reports.html");
+        $("#settings").load("settings.html");
+      });
+    </script>
+
+  </div>
+
+
+
+  <script>
+    function openCity(evt, cityName) {
+      var i, x, tablinks;
+      x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("nav-item");
+      for (i = 0; i < x.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " w3-red";
+    }
+  </script>
+
+
+  <!-- footer -->
+  <footer>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="row border-top pt-3">
+            <div class="col-lg-6 text-center">
+              <ul class="list-inline">
+                <li class="list-inline-item mr-2">
+                  <a href="#" class="text-dark">TOD for LIOT</a>
+                </li>
+                <li class="list-inline-item mr-2">
+                  <a href="#" class="text-dark">About</a>
+                </li>
+                <li class="list-inline-item mr-2">
+                  <a href="#" class="text-dark">Support</a>
+                </li>
+                <li class="list-inline-item mr-2">
+                  <a href="#" class="text-dark">Blog</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-6 text-center">
+              <p>&copy; 2020 Copyright. Made With <i class="fas fa-heart text-danger"></i> by <span
+                  class="text-success">Devin</span></p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- end of modal -->
+  </footer>
+  <!-- end of footer -->
 
-    <div style="margin-left:270px; margin-top:50px">
-        <div class="w3-padding">Cutomized Transport Management System For Lanaka Institute of Technology</div>
-      
-        <div id="dashboard-home" class="w3-container city" style="display:none">
-          <h2>Home</h2>
-        </div>
-      
-        <div id="manage-routes" class="w3-container city" style="display:none">
-          <h2>Manage Routes</h2>
-        </div>
-      
-        <div id="manage-timeslots" class="w3-container city" style="display:none">
-            <h2>Manage Time Slots</h2>
-        </div>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+  <script src="cdbscript.js"></script>
 
-        <div id="manage-drivers" class="w3-container city" style="display:none">
-            <h2>Manage Drivers</h2>
-        </div>
+  <script src="/js/database.js"></script>
+  <script src="/js/liot/liot-user.js"></script>
+  <script>
 
-        <div id="manage-buses" class="w3-container city" style="display:none">
-            <h2>Manage Buses</h2>
-        </div>
-
-        <div id="manage-reports" class="w3-container city" style="display:none">
-            <h2>Student Reports</h2>
-        </div>
-
-        <div id="manage-reviews" class="w3-container city" style="display:none">
-            <h2>Settings</h2>
-        </div>
-
-        <div id="settings" class="w3-container city" style="display:none">
-            <h2>Settings</h2>
-        </div>
-
-        <script>
-            $(function () {
-                $("#manage-routes").load("manage-routes.html");
-                $("#manage-reviews").load("manage-reviews.html");
-                //$("#dashboard-home").load("manage-routes.html");
-                $("#manage-timeslots").load("manage-timeslots.html");
-                $("#manage-buses").load("manage-buses.html");
-                $("#manage-reports").load("manage-reports.html");
-                $("#settings").load("settings.html");
-            });
-        </script>
-      
-      </div>
-      
-      <script>
-      function openCity(evt, cityName) {
-        var i, x, tablinks;
-        x = document.getElementsByClassName("city");
-        for (i = 0; i < x.length; i++) {
-          x[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("nav-item");
-        for (i = 0; i < x.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" w3-red", ""); 
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " w3-red";
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (!user) {
+        window.location.href = "cdb-admin-signin.html";
       }
-      </script>
+    });
+  </script>
 
+</body>
 
-    <!-- footer -->
-    <footer>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-            <div class="row border-top pt-3">
-              <div class="col-lg-6 text-center">
-                <ul class="list-inline">
-                  <li class="list-inline-item mr-2">
-                    <a href="#" class="text-dark">TOD for LIOT</a>
-                  </li>
-                  <li class="list-inline-item mr-2">
-                    <a href="#" class="text-dark">About</a>
-                  </li>
-                  <li class="list-inline-item mr-2">
-                    <a href="#" class="text-dark">Support</a>
-                  </li>
-                  <li class="list-inline-item mr-2">
-                    <a href="#" class="text-dark">Blog</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-lg-6 text-center">
-                <p>&copy; 2020 Copyright. Made With <i class="fas fa-heart text-danger"></i> by <span class="text-success">Devin</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- end of footer -->
-   
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    <script src="cdbscript.js"></script>
-
-    <script src="/js/database.js"></script>
-    <script src="/js/liot/liot-user.js"></script>
-    <script>
-
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (!user) {
-                window.location.href = "cdb-admin-signin.html";
-            }
-        });
-    </script>
-
-  </body>
 </html>
