@@ -93,12 +93,21 @@
                     </div>
 
                 </form>
+                <div>
                 <div style="text-align: right">
                     <br>
-                    <a href="AdminSignUp.html" class="txt3" >
-                        Needs to get Registered ? click here.
+                    <a href="cgr-admin.html" class="txt3" >
+                        CGR Admin Panel Login ? click here.
                     </a>
+                    <br>
+                    <a href="AdminSignUp.html" class="txt3" >
+                        Bus Company Login ? click here.
+                    </a>
+                    
                 </div>
+
+            </div>
+                
 
             </div>
         </div>
@@ -123,7 +132,7 @@
                 userID = firebase.auth().currentUser.uid;
                 firebase.database().ref('Admin/' + userID).once('value').then(function (snapshot) {
                     if (snapshot.val()) {
-                        window.location.href = "admin-home.html";
+                        window.location.href = "admin-new-panel.html";
 
                     }
                     else {

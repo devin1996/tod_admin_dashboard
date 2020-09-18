@@ -50,25 +50,25 @@
                   onclick="openCity(event, 'dashboard-home')"><i
                     class="fas fa-home text-light fa-lg mr-3"></i>Dashboard</a></li>
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
-                  onclick="openCity(event, 'manage-routes')"><i class="fas fa-user text-light fa-lg mr-3"></i>Manage
-                  Routes</a></li>
+                  onclick="openCity(event, 'manage-routes')"><i
+                    class="fas fa-user text-light fa-lg mr-3"></i>TimeSlots</a></li>
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
                   onclick="openCity(event, 'manage-timeslots')"><i
-                    class="fas fa-envelope text-light fa-lg mr-3"></i>Manage TimeSlots</a></li>
+                    class="fas fa-envelope text-light fa-lg mr-3"></i>Routes</a></li>
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
-                  onclick="openCity(event, 'manage-buses')"><i
-                    class="fas fa-shopping-cart text-light fa-lg mr-3"></i>Manage Drivers</a></li>
+                  onclick="openCity(event, 'manage-passenger')"><i
+                    class="fas fa-shopping-cart text-light fa-lg mr-3"></i>Passengers</a></li>
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
-                  onclick="openCity(event, 'manage-buses')"><i
-                    class="fas fa-chart-line text-light fa-lg mr-3"></i>Manage Buses</a></li>
+                  onclick="openCity(event, 'manage-drivers')"><i
+                    class="fas fa-chart-line text-light fa-lg mr-3"></i>Drivers</a></li>
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
-                  onclick="openCity(event, 'manage-reports')"><i
-                    class="fas fa-chart-bar text-light fa-lg mr-3"></i>Student Reports</a></li>
+                  onclick="openCity(event, 'manage-conductors')"><i
+                    class="fas fa-chart-bar text-light fa-lg mr-3"></i>Conductors</a></li>
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
-                  onclick="openCity(event, 'manage-reviews')"><i
-                    class="fas fa-chart-bar text-light fa-lg mr-3"></i>Student Reviews</a></li>
+                  onclick="openCity(event, 'manage-companies')"><i
+                    class="fas fa-chart-bar text-light fa-lg mr-3"></i>Companies</a></li>
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
-                  onclick="openCity(event, 'settings')"><i class="fas fa-wrench text-light fa-lg mr-3"></i>Settings</a>
+                  onclick="openCity(event, 'manage-buses')"><i class="fas fa-wrench text-light fa-lg mr-3"></i>Buses</a>
               </li>
             </ul>
           </div>
@@ -78,7 +78,7 @@
           <div class="col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
             <div class="row align-items-center">
               <div class="col-md-4">
-                <h4 class="text-light text-uppercase mb-0">LIOT</h4>
+                <h4 class="text-light text-uppercase mb-0">Transport on Demnand</h4>
               </div>
               <div class="col-md-5">
                 <form>
@@ -144,12 +144,6 @@
   <div style="margin-left:270px; margin-top:50px">
     <div class="w3-padding">Cutomized Transport Management System For Lanaka Institute of Technology</div>
 
-
-
-
-
-
-
     <div id="manage-drivers" class="w3-container city" style="display:none">
       <h2>Manage Drivers</h2>
     </div>
@@ -172,13 +166,17 @@
 
     <script>
       $(function () {
-        $("#manage-routes").load("manage-routes.html");
-        $("#manage-reviews").load("manage-reviews.html");
+        $("#manage-drivers").load("manage-drivers.html");
+        $("#manage-conductors").load("manage-conductors.html");
         $("#dashboard-home").load("dashboard-home.html");
-        $("#manage-timeslots").load("admin-view-timeslots.html");
+        $("#manage-timeslots").load("admin-timeslots.html");
+        $("#manage-companies").load("manage-companies.html");
+        $("#admion-other").load("manage-other.html");
+        $("#manage-routes").load("admin-routes.html");
         $("#manage-buses").load("manage-buses.html");
-        $("#manage-reports").load("manage-reports.html");
-        $("#settings").load("settings.html");
+        $("#manage-passenger").load("manage-passenger.html");
+
+
       });
     </script>
 
@@ -212,7 +210,7 @@
             <div class="col-lg-6 text-center">
               <ul class="list-inline">
                 <li class="list-inline-item mr-2">
-                  <a href="#" class="text-dark">TOD for LIOT</a>
+                  <a href="#" class="text-dark">TOD</a>
                 </li>
                 <li class="list-inline-item mr-2">
                   <a href="#" class="text-dark">About</a>
@@ -251,7 +249,7 @@
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (!user) {
-        window.location.href = "cdb-admin-signin.html";
+        window.location.href = "AdminSignIn.html";
       }
     });
   </script>

@@ -1,0 +1,358 @@
+<html>
+
+<head>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    </link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #To {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+        #myTable th,
+        #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        #myTable tr.header,
+        #myTable tr:hover {
+            background-color: #f1f1f1;
+        }
+
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+
+<section>
+    <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+                <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                    aria-expanded="false" aria-controls="collapseOne">
+                                    ADD NEW TIME SLOTS
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+
+                                <form>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputEmail4">Register Name</label>
+                                            <input type="email" class="form-control" id="inputEmail4"
+                                                placeholder="Email">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">Track Number</label>
+                                            <input type="password" class="form-control" id="inputPassword4"
+                                                placeholder="Password">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputEmail4">From</label>
+                                            <input type="email" class="form-control" id="inputEmail4"
+                                                placeholder="Email">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">To</label>
+                                            <input type="password" class="form-control" id="inputPassword4"
+                                                placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputEmail4">Departure Time</label>
+                                            <input type="email" class="form-control" id="inputEmail4"
+                                                placeholder="Email">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">Arrival Time</label>
+                                            <input type="password" class="form-control" id="inputPassword4"
+                                                placeholder="Password">
+                                        </div>
+                                    </div>
+
+
+                                    <button type="button" class="btn btn-secondary btn-lg btn-block">Insert Time
+                                        Slot</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse"
+                                    data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                    CURRENT TIME SLOTS
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse show" aria-labelledby="headingThree"
+                            data-parent="#accordion">
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">From</label>
+                                    <input type="text" class="form-control" id="myInput" placeholder="From"
+                                        onkeyup="myFunction()">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">To</label>
+                                    <input type="text" class="form-control" id="To" onkeyup="functionTo()"
+                                        placeholder="To" title="To">
+                                </div>
+
+
+                                <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
+                                <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
+
+                                <table id="myTable">
+
+                                    <thead>
+                                        <tr class="header">
+                                            <th style="width:20%;">Ride No</th>
+                                            <th style="width:20%;">From</th>
+                                            <th style="width:20%;">To</th>
+                                            <th style="width:20%;">Departure Time</th>
+                                            <th style="width:20%;">Arrival Time</th>
+                                            <th style="width:20%;">Manage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- modal -->
+                <div class="modal fade" id="sign-out">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Want to leave?</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                Press Delete
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+                                <button type="button" class="btn btn-danger" id="delbtn">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <script src="/js/database.js"></script>
+                <script>
+
+                    var database = firebase.database();
+                    database.ref("timeSlots").child("busTime").once("value", function (snapshot) {
+                        if (snapshot.exists()) {
+                            var content = '';
+
+                            snapshot.forEach(function (childSnapshot) {
+
+                                var val = childSnapshot.val();
+                                var unique_key = val.timeSlotKey;
+
+
+                                content += '<tr class="data">';
+                                content += '<td class="inputValue">' + val.rideNo + '</td>';
+                                content += '<td class="inputValue">' + val.from + '</td>';
+                                content += '<td class="inputValue">' + val.to + '</td>';
+                                content += '<td class="inputValue">' + val.depTime + ' hrs</td>';
+                                content += '<td class="inputValue">' + val.arrTime + ' hrs</td>';
+                                content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#sign-out"><button type="button" class="btn btn-outline-danger xyz">Delete</button></td>';
+                                content += '</tr>';
+
+                            });
+
+                            $('#myTable').append(content);
+
+
+                        }
+
+                    });
+
+                    function myFunction() {
+                        var input, filter, table, tr, td, i, txtValue;
+                        input = document.getElementById("myInput");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("myTable");
+                        tr = table.getElementsByTagName("tr");
+
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[1];
+                            if (td) {
+                                txtValue = td.textContent || td.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+
+                    }
+
+                    function functionTo() {
+                        var input, filter, table, tr, td, i, txtValue;
+                        input = document.getElementById("To");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("myTable");
+                        tr = table.getElementsByTagName("tr");
+
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[2];
+                            if (td) {
+                                txtValue = td.textContent || td.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+
+                    }
+
+                    // $(document).ready(function () {
+
+                    //     $('#myTable tr').click(function () {
+                    //         var href = $(this).find("a").attr("href");
+                    //         if (href) {
+                    //             window.location = href;
+                    //         }
+                    //     });
+
+                    // });
+
+                    // $(document).ready(function () {
+                    //     $('table tbody tr').click(function () {
+                    //         alert($(this).text());
+                    //     });
+                    // });
+
+                    // // $("#xyz").on('click', function (e) {
+                    // //     e.preventDefault();
+                    // //     var data = $("#myTable tr.data").map(function (index, elem) {
+                    // //         var ret = [];
+                    // //         $('.inputValue', this).each(function () {
+                    // //             var d = $(this).val() || $(this).text();
+                    // //             ret.push(d);
+                    // //             console.log(d);
+                    // //             // if (d == "N/A") {
+                    // //             //     console.log(true);
+                    // //             // }
+                    // //         });
+                    // //         return ret;
+                    // //     });
+                    // //     console.log(data);
+                    // //     console.log(data[0]);
+                    // // });
+
+                    $("#myTable").on('click','.xyz',function(){
+         // get the current row
+         var currentRow=$(this).closest("tr"); 
+         
+         var col1=currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+         var col2=currentRow.find("td:eq(1)").text(); // get current row 2nd TD
+         var col3=currentRow.find("td:eq(2)").text(); // get current row 3rd TD
+         var data=col1+"\n"+col2+"\n"+col3;
+         
+         //alert(data);
+   
+});
+
+
+
+                </script>
+
+                <script>
+                    $(function () {
+                        $("#nav-placeholder").load("route-navbar.html");
+                    });
+                </script>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+</section>
+
+</html>
