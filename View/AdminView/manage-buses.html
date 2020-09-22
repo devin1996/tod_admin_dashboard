@@ -182,7 +182,8 @@
                                             <th style="width:20%;">To</th>
                                             <th style="width:20%;">Departure Time</th>
                                             <th style="width:20%;">Arrival Time</th>
-                                            <th style="width:20%;">Manage</th>
+                                            <th style="width:20%;">Delete</th>
+                                            <th style="width:20%;">Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -239,6 +240,7 @@
                                 content += '<td class="inputValue">' + val.depTime + ' hrs</td>';
                                 content += '<td class="inputValue">' + val.arrTime + ' hrs</td>';
                                 content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#sign-out"><button type="button" class="btn btn-outline-danger xyz">Delete</button></td>';
+                                content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#sign-out"><button type="button" class="btn btn-outline-danger xyz">Edit</button></td>';
                                 content += '</tr>';
 
                             });
@@ -327,18 +329,18 @@
                     // //     console.log(data[0]);
                     // // });
 
-                    $("#myTable").on('click','.xyz',function(){
-         // get the current row
-         var currentRow=$(this).closest("tr"); 
-         
-         var col1=currentRow.find("td:eq(0)").text(); // get current row 1st TD value
-         var col2=currentRow.find("td:eq(1)").text(); // get current row 2nd TD
-         var col3=currentRow.find("td:eq(2)").text(); // get current row 3rd TD
-         var data=col1+"\n"+col2+"\n"+col3;
-         
-         //alert(data);
-   
-});
+                    $("#myTable").on('click', '.xyz', function () {
+                        // get the current row
+                        var currentRow = $(this).closest("tr");
+
+                        var col1 = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+                        var col2 = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
+                        var col3 = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
+                        var data = col1 + "\n" + col2 + "\n" + col3;
+
+                        //alert(data);
+
+                    });
 
 
 

@@ -229,8 +229,8 @@
                             snapshot.forEach(function (childSnapshot) {
 
                                 var val = childSnapshot.val();
-                                var unique_key = val.timeSlotKey;
-
+                                var hval = val.rideNo;
+                                
 
                                 content += '<tr class="data">';
                                 content += '<td class="inputValue">' + val.rideNo + '</td>';
@@ -336,7 +336,7 @@
          var col3=currentRow.find("td:eq(2)").text(); // get current row 3rd TD
          var data=col1+"\n"+col2+"\n"+col3;
          
-         //alert(data);
+         alert(data);
    
 });
 
