@@ -24,6 +24,12 @@
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
   <!--====================================================================================================-->
 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+  </link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
   <title>TOD - Admin Dashboard</title>
 </head>
 
@@ -51,8 +57,8 @@
                     class="fas fa-home text-light fa-lg mr-3"></i>Dashboard</a></li>
 
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
-                  onclick="openCity(event, 'manage-timeslots')"><i
-                    class="fas fa-user text-light fa-lg mr-3"></i>Time Slots</a></li>
+                  onclick="openCity(event, 'manage-timeslots')"><i class="fas fa-user text-light fa-lg mr-3"></i>Time
+                  Slots</a></li>
 
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
                   onclick="openCity(event, 'manage-routes')"><i
@@ -136,6 +142,84 @@
 
   <!-- end of modal -->
 
+    <!-- modal -->
+    <div class="modal fade" id="success-btnx">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Done</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            Task Completed Successfully
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  <!-- modal to update -->
+  <div class="modal fade" id="update-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Want to Edit this Time Slot?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+
+          <form>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Ride Number</label>
+                <input type="text" class="form-control" id="eRideNo" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Key</label>
+                <input type="text" class="form-control" id="eTimeSlotKey" disabled />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">From</label>
+                <input type="text" class="form-control" id="eFrom" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">To</label>
+                <input type="text" class="form-control" id="eTo" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Departure Time</label>
+                <input type="text" class="form-control" id="eDepTime" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Arrival Time</label>
+                <input type="text" class="form-control" id="eArrTime" />
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+          <button onclick="editBusTimeSlot()" type="button" class="btn btn-danger" id="updatebtn" data-dismiss="modal">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Small modal -->
+
+
   <div id="dashboard-home" class="w3-container city" style="display:none">
 
   </div>
@@ -144,12 +228,230 @@
 
   </div>
 
-  <div id="manage-timeslots" class="w3-container city" style="display:none">
+  <div id="manage-timeslots" class="w3-container city" style="display:none">+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
+      #myInput {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+      }
+
+      #To {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+      }
+
+      #myTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 18px;
+      }
+
+      #myTable th,
+      #myTable td {
+        text-align: left;
+        padding: 12px;
+      }
+
+      #myTable tr {
+        border-bottom: 1px solid #ddd;
+      }
+
+      #myTable tr.header,
+      #myTable tr:hover {
+        background-color: #f1f1f1;
+      }
+
+
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 400px;
+      }
+
+      td:nth-of-type(1) {
+        display: none;
+      }
+
+      th:nth-of-type(1) {
+        display: none;
+      }
+    </style>
+
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                      aria-controls="collapseOne">
+                      ADD NEW TIME SLOTS
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <form>
+
+                      <div class="form-group">
+                        <label for="inputAddress">Ride No</label>
+                        <input type="text" class="form-control" id="inputRideNo" placeholder="Ride No">
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">From</label>
+                          <input type="text" class="form-control" id="inputFrom" placeholder="From">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">To</label>
+                          <input type="text" class="form-control" id="inputTo" placeholder="To">
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Departure Time</label>
+                          <input type="text" class="form-control" id="inputDepTime" placeholder="Departure Time">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Arrival Time</label>
+                          <input type="text" class="form-control" id="inputArrTime" placeholder="Arrival Time">
+                        </div>
+                      </div>
+
+
+                      <button type="button" onclick="insertBusTimeSlot()"
+                        class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#success-btnx">Insert Time
+                        Slot</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENT TIME SLOTS
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">From</label>
+                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">To</label>
+                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="To"
+                        title="To">
+                    </div>
+
+
+                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
+                                  <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
+
+                    <table id="myTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th style="width:20%;">TimeSlotKey</th>
+                          <th style="width:20%;">Ride No</th>
+                          <th style="width:20%;">From</th>
+                          <th style="width:20%;">To</th>
+                          <th style="width:20%;">Departure Time</th>
+                          <th style="width:20%;">Arrival Time</th>
+                          <th style="width:20%;">Edit</th>
+                          <th style="width:20%;">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn"
+                      onclick="deleteBusTimeSlot()" data-dismiss="modal"2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="js/timeSlot.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
   </div>
 
   <div style="margin-left:270px; margin-top:50px">
-    <div class="w3-padding">Cutomized Transport Management System For Lanaka Institute of Technology</div>
+    <div class="w3-padding">TOD - Public Transport Management System.</div>
 
     <div id="manage-drivers" class="w3-container city" style="display:none">
       <h2>Manage Drivers</h2>
@@ -173,15 +475,15 @@
 
     <script>
       $(function () {
-        $("#manage-drivers").load("manage-drivers.html");
-        $("#manage-conductors").load("manage-conductors.html");
+        //$("#manage-drivers").load("manage-drivers.html");
+        //$("#manage-conductors").load("manage-conductors.html");
         $("#dashboard-home").load("dashboard-home.html");
-        $("#manage-timeslots").load("admin-timeslots.html");
-        $("#manage-companies").load("manage-companies.html");
-        $("#admion-other").load("manage-other.html");
-        $("#manage-routes").load("admin-routes.html");
-        $("#manage-buses").load("manage-buses.html");
-        $("#manage-passenger").load("manage-passenger.html");
+        // $("#manage-timeslots").load("admin-timeslots.html");
+        //$("#manage-companies").load("manage-companies.html");
+        //$("#admion-other").load("manage-other.html");
+        //$("#manage-routes").load("admin-routes.html");
+        //$("#manage-buses").load("manage-buses.html");
+        //$("#manage-passenger").load("manage-passenger.html");
 
 
       });
@@ -232,7 +534,7 @@
             </div>
             <div class="col-lg-6 text-center">
               <p>&copy; 2020 Copyright. Made With <i class="fas fa-heart text-danger"></i> by <span
-                  class="text-success">Devin</span></p>
+                  class="text-success">M A D C De Silva </span>for the Final Year Award Project</p>
             </div>
           </div>
         </div>
@@ -248,7 +550,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
     integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
-  <script src="cdbscript.js"></script>
+  <script src="js/cdbscript.js"></script>
 
   <script src="/js/database.js"></script>
   <script src="/js/liot/liot-user.js"></script>
@@ -259,6 +561,12 @@
         window.location.href = "AdminSignIn.html";
       }
     });
+
+    function autoRefreshPage() {
+      window.location = window.location.href;
+    }
+    setInterval('autoRefreshPage()', 120000);
+
   </script>
 
 </body>
