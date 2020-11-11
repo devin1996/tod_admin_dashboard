@@ -1,4 +1,5 @@
 
+//insert new bus route
 function insertRoute() {
     var routeRegNo = document.getElementById("routeRegNo").value;
 
@@ -7,7 +8,7 @@ function insertRoute() {
     firebase.database().ref("routes").child("busRoute").child(randomKey).set({
 
         routeRegNo: routeRegNo,
-        routeNo: document.getElementById("routeNo001").value,
+        routeNo: document.getElementById("awc").value,
         routeName: document.getElementById("routeName").value,
         totalDistance: document.getElementById("totalDistance").value,
         avgSpeed: document.getElementById("avgSpeed").value,
@@ -39,13 +40,14 @@ database.ref("routes").child("busRoute").once("value", function (snapshot) {
             content += '<td>' + val.avgSpeed + '</td>';
             content += '<td>' + val.avgTime + '</td>';
             content += '<td>' + val.efectiveDate + '</td>';
-            content += '<td> <a href="">Edit</a> </td>';
+            content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#update-out"><button type="button" class="btn btn-outline-warning edits_btn">Edit</button></td>';
+            content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#delete-out"><button type="button" class="btn btn-outline-danger del_btn">Delete</button></td>';
             content += '</tr>';
 
         });
 
 
-        $('#table1').append(content);
+        $('#busRoutesTable').append(content);
 
 
     }

@@ -31,6 +31,88 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
   <title>TOD - Admin Dashboard</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    #myInput {
+      background-image: url('/css/searchicon.png');
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      width: 100%;
+      font-size: 16px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+
+    #To {
+      background-image: url('/css/searchicon.png');
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      width: 100%;
+      font-size: 16px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+
+    #myTable,
+    #passengerTable,
+    #driverTable {
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #ddd;
+      font-size: 18px;
+    }
+
+    /* #passengerTable {
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #ddd;
+      font-size: 18px;
+    } */
+
+
+    #myTable th,
+    #myTable td {
+      text-align: left;
+      padding: 12px;
+    }
+
+    #myTable tr {
+      border-bottom: 1px solid #ddd;
+    }
+
+    #myTable tr.header,
+    #myTable tr:hover {
+      background-color: #f1f1f1;
+    }
+
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .column {
+      float: left;
+      width: 50%;
+      padding: 10px;
+      height: 400px;
+    }
+
+    td:nth-of-type(1) {
+      display: none;
+    }
+
+    th:nth-of-type(1) {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -45,7 +127,8 @@
         <div class="row">
           <!-- sidebar -->
           <div class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
-            <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border">TOD Admin
+            <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border"
+              onclick="openCity(event, 'dashboard-home')">TOD Admin
               Dashboard</a>
             <div class="bottom-border pb-3">
               <img src="images/KVGHcrop.jpg" width="50" class="rounded-circle mr-3">
@@ -53,8 +136,8 @@
             </div>
             <ul class="navbar-nav flex-column mt-4">
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
-                  onclick="openCity(event, 'dashboard-home')"><i
-                    class="fas fa-home text-light fa-lg mr-3"></i>Dashboard</a></li>
+                  onclick="openCity(event, 'manage-bookings')"><i
+                    class="fas fa-home text-light fa-lg mr-3"></i>Bookings</a></li>
 
               <li class="nav-item"><a class="nav-link text-white p-3 mb-2 sidebar-link"
                   onclick="openCity(event, 'manage-timeslots')"><i class="fas fa-user text-light fa-lg mr-3"></i>Time
@@ -96,7 +179,7 @@
               <div class="col-md-5">
                 <form>
                   <div class="input-group">
-                    <input type="text" class="form-control search-input" placeholder="Search...">
+                    <input type="text" class="form-control search-input" placeholder="Search">
                     <button type="button" class="btn btn-white search-button"><i
                         class="fas fa-search text-danger"></i></button>
                   </div>
@@ -104,10 +187,16 @@
               </div>
               <div class="col-md-3">
                 <ul class="navbar-nav">
-                  <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"><i
-                        class="fas fa-comments text-muted fa-lg"></i></a></li>
-                  <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"><i
-                        class="fas fa-bell text-muted fa-lg"></i></a></li>
+                  <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"
+                      onclick="openCity(event, 'manage-reviews')"><i class="fas fa-comments text-muted fa-lg"></i></a>
+                  </li>
+
+                  <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"
+                      onclick="openCity(event, 'manage-reports')"><i class="fas fa-flag text-muted fa-lg"></i></a></li>
+
+                  <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"
+                      onclick="openCity(event, 'manage-settings')"><i class="fas fa-cog text-muted fa-lg"></i></a></li>
+
                   <li class="nav-item ml-md-auto"><a href="#" class="nav-link" data-toggle="modal"
                       data-target="#sign-out"><i class="fas fa-sign-out-alt text-danger fa-lg"></i></a></li>
                 </ul>
@@ -142,25 +231,25 @@
 
   <!-- end of modal -->
 
-    <!-- modal -->
-    <div class="modal fade" id="success-btnx">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Done</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            Task Completed Successfully
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-          </div>
+  <!-- modal -->
+  <div class="modal fade" id="success-btnx">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Done</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          Task Completed Successfully
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
         </div>
       </div>
     </div>
+  </div>
 
-    
+
   <!-- modal to update -->
   <div class="modal fade" id="update-out">
     <div class="modal-dialog">
@@ -211,7 +300,8 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-          <button onclick="editBusTimeSlot()" type="button" class="btn btn-danger" id="updatebtn" data-dismiss="modal">Update</button>
+          <button onclick="editBusTimeSlot()" type="button" class="btn btn-danger" id="updatebtn"
+            data-dismiss="modal">Update</button>
         </div>
       </div>
     </div>
@@ -224,83 +314,342 @@
 
   </div>
 
-  <div id="manage-routes" class="w3-container city" style="display:none">
+  <div id="manage-bookings" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
 
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                      aria-controls="collapseOne">
+                      Bookings
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Mobile No</label>
+                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                    </div>
+
+                    <table id="busRoutesTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th>Book Id</th>
+                          <th>Passenger No</th>
+                          <th>Booked Date</th>
+                          <th>Date</th>
+                          <th>Ride No</th>
+                          <th>Time Slot</th>
+                          <th>Time</th>
+                          <th>Arr Time</th>
+                          <th>Dep TIme</th>
+                          <th>From</th>
+                          <th>To</th>
+                          <th>Payment Name</th>
+                          <th>Payment Id</th>
+                          <th>Pay About</th>
+                          <th>Pay Note</th>
+                          <th>State</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENT BUS ROUTES
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">From</label>
+                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">To</label>
+                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="To"
+                        title="To">
+                    </div>
+
+                    <table id="busRoutesTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th>Book Id</th>
+                          <th>Passenger No</th>
+                          <th>Booked Date</th>
+                          <th>Date</th>
+                          <th>Ride No</th>
+                          <th>Time Slot</th>
+                          <th>Time</th>
+                          <th>Arr Time</th>
+                          <th>Dep TIme</th>
+                          <th>From</th>
+                          <th>To</th>
+                          <th>Payment Name</th>
+                          <th>Payment Id</th>
+                          <th>Pay About</th>
+                          <th>Pay Note</th>
+                          <th>State</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!--Bus Routes CRUS Operations-->
+  <div id="manage-routes" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                      aria-controls="collapseOne">
+                      Sea
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <form>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Register No</label>
+                          <input type="text" class="form-control" id="routeRegNo" placeholder="Enter Register No"
+                            required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Route NO</label>
+                          <input type="text" class="form-control" id="routeNo" placeholder="Enter Route NO" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Name</label>
+                          <input type="text" class="form-control" id="routeName" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Total Distance in KM</label>
+                          <input type="text" class="form-control" id="totalDistance" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Type</label>
+                          <select name id="busType" class="form-control">
+                            <option value disabled selected>Type</option>
+                            <option value="Highluxury">High Luxury</option>
+                            <option value="semiluxury">Luxury</option>
+                            <option value="semiluxury">Semi Luxury</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Average Speed in Km/h</label>
+                          <input type="text" class="form-control" id="avgSpeed"
+                            placeholder="Enter average Speed in Km/h" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Average Time</label>
+                          <input type="time" class="form-control" id="avgTime" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Effective Date</label>
+                          <input type="date" class="form-control" id="inputTo" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+
+                      <button type="button" onclick="insertRoute()" class="btn btn-dark btn-lg btn-block"
+                        data-toggle="modal" data-target="#success-btnx">Insert Time
+                        Slot</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENT BUS ROUTES
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">From</label>
+                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">To</label>
+                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="To"
+                        title="To">
+                    </div>
+
+
+                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
+                                  <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
+
+                    <table id="busRoutesTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th ">Reg No</th>
+                          <th  ">Route No</th>
+                          <th ">Route Name</th>
+                          <th  ">Total Distance</th>
+                          <th ">Type</th>
+                          <th  ">Average Speed</th>
+                          <th ">Estimated Time</th>
+                          <th  ">Effective From</th>
+                          <th ">Edit</th>
+                          <th  ">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
   </div>
 
   <div id="manage-timeslots" class="w3-container city" style="display:none">+
-    <style>
-      * {
-        box-sizing: border-box;
-      }
 
-      #myInput {
-        background-image: url('/css/searchicon.png');
-        background-position: 10px 10px;
-        background-repeat: no-repeat;
-        width: 100%;
-        font-size: 16px;
-        padding: 12px 20px 12px 40px;
-        border: 1px solid #ddd;
-        margin-bottom: 12px;
-      }
-
-      #To {
-        background-image: url('/css/searchicon.png');
-        background-position: 10px 10px;
-        background-repeat: no-repeat;
-        width: 100%;
-        font-size: 16px;
-        padding: 12px 20px 12px 40px;
-        border: 1px solid #ddd;
-        margin-bottom: 12px;
-      }
-
-      #myTable {
-        border-collapse: collapse;
-        width: 100%;
-        border: 1px solid #ddd;
-        font-size: 18px;
-      }
-
-      #myTable th,
-      #myTable td {
-        text-align: left;
-        padding: 12px;
-      }
-
-      #myTable tr {
-        border-bottom: 1px solid #ddd;
-      }
-
-      #myTable tr.header,
-      #myTable tr:hover {
-        background-color: #f1f1f1;
-      }
-
-
-      .row:after {
-        content: "";
-        display: table;
-        clear: both;
-      }
-
-      .column {
-        float: left;
-        width: 50%;
-        padding: 10px;
-        height: 400px;
-      }
-
-      td:nth-of-type(1) {
-        display: none;
-      }
-
-      th:nth-of-type(1) {
-        display: none;
-      }
-    </style>
-
+    <!-- Bus time slots CRUD operations -->
     <section>
       <div class="container-fluid" style="margin-top: 60px;">
         <div class="row">
@@ -353,8 +702,8 @@
                       </div>
 
 
-                      <button type="button" onclick="insertBusTimeSlot()"
-                        class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#success-btnx">Insert Time
+                      <button type="button" onclick="insertBusTimeSlot()" class="btn btn-success btn-lg btn-block"
+                        data-toggle="modal" data-target="#success-btnx">Insert Time
                         Slot</button>
                     </form>
 
@@ -432,8 +781,8 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="delbtn"
-                      onclick="deleteBusTimeSlot()" data-dismiss="modal"2>Delete</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
                   </div>
                 </div>
               </div>
@@ -450,29 +799,1293 @@
     </section>
   </div>
 
+  <!--Passenger CRUS Operations-->
+  <div id="manage-passenger" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENTLY REGISTERED PASSENGERS
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="myInput" placeholder="Serch From Mobile Number"
+                        onkeyup="myFunction()">
+                    </div>
+
+
+                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
+                                  <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
+
+                    <table id="passengerTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th style="width:20%;"></th>
+                          <th style="width:20%;">Profile Picture</th>
+                          <th style="width:20%;">Mobile Number</th>
+                          <th style="width:20%;">Name</th>
+                          <th style="width:20%;">e-mail</th>
+                          <th style="width:20%;">Address</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!--Driver CRUS OPERATIONS-->
+  <div id="manage-drivers" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                      aria-controls="collapseOne">
+                      ADD DRIVER
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <form>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Mobile No</label>
+                          <input type="text" class="form-control" id="routeRegNo" placeholder="Enter Mobile No"
+                            required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Name</label>
+                          <input type="text" class="form-control" id="routeNo" placeholder="Enter Driver Name" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">e-mail</label>
+                          <input type="text" class="form-control" id="routeName" placeholder="Enter email" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Password</label>
+                          <input type="password" class="form-control" id="totalDistance" placeholder="Enter a Password"
+                            required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Address</label>
+                          <input type="text" class="form-control" id="avgSpeed"
+                            placeholder="Enter average Speed in Km/h" required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Current Bus</label>
+                          <input type="text" class="form-control" id="avgSpeed"
+                            placeholder="Enter average Speed in Km/h" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Current Company</label>
+                          <input type="text" class="form-control" id="avgTime" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Effective Date</label>
+                          <input type="date" class="form-control" id="inputTo" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+
+                      <button type="button" onclick="insertRoute()" class="btn btn-dark btn-lg btn-block"
+                        data-toggle="modal" data-target="#success-btnx">Register Driver
+                        Slot</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENT BUS DRIVERS
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="Mobile Phone"
+                        title="To">
+                    </div>
+
+
+                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
+                                  <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
+
+                    <table id="driverTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th>Mobile No</th>
+                          <th>Mobile No</th>
+                          <th>Name</th>
+                          <th>e-mail</th>
+                          <th>Address</th>
+                          <th>NIC</th>
+                          <th>Effective date</th>
+                          <th>Reg BUS</th>
+                          <th>Reg Company</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+
+  <!--Conductor CRUS OPERATIONS-->
+  <div id="manage-conductors" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                      aria-controls="collapseOne">
+                      ADD CONDUCTOR
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <form>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Mobile No</label>
+                          <input type="text" class="form-control" id="routeRegNo" placeholder="Enter Mobile No"
+                            required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Name</label>
+                          <input type="text" class="form-control" id="routeNo" placeholder="Enter Driver Name" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">e-mail</label>
+                          <input type="text" class="form-control" id="routeName" placeholder="Enter email" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Password</label>
+                          <input type="password" class="form-control" id="totalDistance" placeholder="Enter NIC Number"
+                            required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Address</label>
+                          <input type="text" class="form-control" id="avgSpeed"
+                            placeholder="Enter average Speed in Km/h" required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Current Bus</label>
+                          <input type="text" class="form-control" id="avgSpeed"
+                            placeholder="Enter average Speed in Km/h" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Current Company</label>
+                          <input type="text" class="form-control" id="avgTime" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Effective Date</label>
+                          <input type="date" class="form-control" id="inputTo" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+
+                      <button type="button" onclick="insertRoute()" class="btn btn-dark btn-lg btn-block"
+                        data-toggle="modal" data-target="#success-btnx">Register Conductor
+                        Slot</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENT BUS DRIVERS
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="Mobile Phone"
+                        title="To">
+                    </div>
+
+
+                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
+                                    <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
+
+                    <table id="driverTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th>Mobile No</th>
+                          <th>Mobile No</th>
+                          <th>Name</th>
+                          <th>e-mail</th>
+                          <th>Address</th>
+                          <th>NIC</th>
+                          <th>Effective date</th>
+                          <th>Reg BUS</th>
+                          <th>Reg Company</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+
+  <div id="manage-companies" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                      aria-controls="collapseOne">
+                      REGISTER A COMPANY
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <form>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Register No</label>
+                          <input type="text" class="form-control" id="routeRegNo" placeholder="Enter Register No"
+                            required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Company Name</label>
+                          <input type="text" class="form-control" id="routeNo" placeholder="Enter Route NO" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Owner Name</label>
+                          <input type="text" class="form-control" id="routeName" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">OWNER NIC</label>
+                          <input type="text" class="form-control" id="totalDistance" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">e-mail</label>
+                          <input type="text" class="form-control" id="routeName" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Address</label>
+                          <input type="text" class="form-control" id="totalDistance" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Contact Number</label>
+                          <input type="text" class="form-control" id="avgTime" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Effective Date</label>
+                          <input type="date" class="form-control" id="inputTo" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+
+                      <button type="button" onclick="insertRoute()" class="btn btn-dark btn-lg btn-block"
+                        data-toggle="modal" data-target="#success-btnx">Register Company</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENT Companies
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="myInput" placeholder="Search Company by Mobile Number" onkeyup="myFunction()">
+                    </div>
+                    
+                    <table id="myTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th>Reg No</th>
+                          <th>Reg No</th>
+                          <th>Company Name</th>
+                          <th>Address</th>
+                          <th>Mobile No</th>
+                          <th>email</th>
+                          <th>Owner Name</th>
+                          <th>Owner NIC</th>
+                          <th>Edit</th>
+                          </th>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <div id="manage-buses" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                      aria-controls="collapseOne">
+                      ADD NEW BUS ROUTES
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <form>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Register No</label>
+                          <input type="text" class="form-control" id="routeRegNo" placeholder="Enter Register No"
+                            required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Route NO</label>
+                          <input type="text" class="form-control" id="routeNo" placeholder="Enter Route NO" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Name</label>
+                          <input type="text" class="form-control" id="routeName" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Total Distance in KM</label>
+                          <input type="text" class="form-control" id="totalDistance" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Type</label>
+                          <select name id="busType" class="form-control">
+                            <option value disabled selected>Type</option>
+                            <option value="Highluxury">High Luxury</option>
+                            <option value="semiluxury">Luxury</option>
+                            <option value="semiluxury">Semi Luxury</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Average Speed in Km/h</label>
+                          <input type="text" class="form-control" id="avgSpeed"
+                            placeholder="Enter average Speed in Km/h" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Average Time</label>
+                          <input type="time" class="form-control" id="avgTime" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Effective Date</label>
+                          <input type="date" class="form-control" id="inputTo" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+
+                      <button type="button" onclick="insertRoute()" class="btn btn-dark btn-lg btn-block"
+                        data-toggle="modal" data-target="#success-btnx">Insert Time
+                        Slot</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENT BUS ROUTES
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">From</label>
+                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">To</label>
+                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="To"
+                        title="To">
+                    </div>
+
+
+                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
+                                    <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
+
+                    <table id="busRoutesTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th ">Reg No</th>
+                          <th  ">Route No</th>
+                          <th ">Route Name</th>
+                          <th  ">Total Distance</th>
+                          <th ">Type</th>
+                          <th  ">Average Speed</th>
+                          <th ">Estimated Time</th>
+                          <th  ">Effective From</th>
+                          <th ">Edit</th>
+                          <th  ">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <div id="manage-reports" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
+
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                      aria-controls="collapseOne">
+                      ADD NEW BUS ROUTES
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <form>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Register No</label>
+                          <input type="text" class="form-control" id="routeRegNo" placeholder="Enter Register No"
+                            required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Route NO</label>
+                          <input type="text" class="form-control" id="routeNo" placeholder="Enter Route NO" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Name</label>
+                          <input type="text" class="form-control" id="routeName" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Total Distance in KM</label>
+                          <input type="text" class="form-control" id="totalDistance" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Type</label>
+                          <select name id="busType" class="form-control">
+                            <option value disabled selected>Type</option>
+                            <option value="Highluxury">High Luxury</option>
+                            <option value="semiluxury">Luxury</option>
+                            <option value="semiluxury">Semi Luxury</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Average Speed in Km/h</label>
+                          <input type="text" class="form-control" id="avgSpeed"
+                            placeholder="Enter average Speed in Km/h" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Average Time</label>
+                          <input type="time" class="form-control" id="avgTime" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Effective Date</label>
+                          <input type="date" class="form-control" id="inputTo" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+
+                      <button type="button" onclick="insertRoute()" class="btn btn-dark btn-lg btn-block"
+                        data-toggle="modal" data-target="#success-btnx">Insert Time
+                        Slot</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENT BUS ROUTES
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">From</label>
+                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">To</label>
+                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="To"
+                        title="To">
+                    </div>
+
+
+                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
+                                    <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
+
+                    <table id="busRoutesTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th ">Reg No</th>
+                          <th  ">Route No</th>
+                          <th ">Route Name</th>
+                          <th  ">Total Distance</th>
+                          <th ">Type</th>
+                          <th  ">Average Speed</th>
+                          <th ">Estimated Time</th>
+                          <th  ">Effective From</th>
+                          <th ">Edit</th>
+                          <th  ">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <div id="manage-reviews" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                      aria-controls="collapseOne">
+                      ADD NEW BUS ROUTES
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <form>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Register No</label>
+                          <input type="text" class="form-control" id="routeRegNo" placeholder="Enter Register No"
+                            required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Route NO</label>
+                          <input type="text" class="form-control" id="routeNo" placeholder="Enter Route NO" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Name</label>
+                          <input type="text" class="form-control" id="routeName" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Total Distance in KM</label>
+                          <input type="text" class="form-control" id="totalDistance" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Type</label>
+                          <select name id="busType" class="form-control">
+                            <option value disabled selected>Type</option>
+                            <option value="Highluxury">High Luxury</option>
+                            <option value="semiluxury">Luxury</option>
+                            <option value="semiluxury">Semi Luxury</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Average Speed in Km/h</label>
+                          <input type="text" class="form-control" id="avgSpeed"
+                            placeholder="Enter average Speed in Km/h" required>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Average Time</label>
+                          <input type="time" class="form-control" id="avgTime" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">Effective Date</label>
+                          <input type="date" class="form-control" id="inputTo" placeholder="Enter the distance"
+                            required>
+                        </div>
+                      </div>
+
+
+                      <button type="button" onclick="insertRoute()" class="btn btn-dark btn-lg btn-block"
+                        data-toggle="modal" data-target="#success-btnx">Insert Time
+                        Slot</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                      aria-expanded="true" aria-controls="collapseThree">
+                      CURRENT BUS ROUTES
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">From</label>
+                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">To</label>
+                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="To"
+                        title="To">
+                    </div>
+
+
+                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
+                                    <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
+
+                    <table id="busRoutesTable">
+
+                      <thead>
+                        <tr class="header">
+                          <th ">Reg No</th>
+                          <th  ">Route No</th>
+                          <th ">Route Name</th>
+                          <th  ">Total Distance</th>
+                          <th ">Type</th>
+                          <th  ">Average Speed</th>
+                          <th ">Estimated Time</th>
+                          <th  ">Effective From</th>
+                          <th ">Edit</th>
+                          <th  ">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <div id="manage-settings" class="w3-container city" style="display:none">
+    <section>
+      <div class="container-fluid" style="margin-top: 60px;">
+        <div class="row">
+
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <!-- <div class="row pt-md-5 mt-md-3 mb-5"> -->
+
+            <div id="accordion">
+              <div class="wrapper" style="background-color: #ebebeb;">
+                <div class="inner" style="border-radius: 15px" ;>
+                  <form action="">
+                    <h3>Account Details</h3>
+
+                    <div class="form-wrapper">
+                      <input id="firstName" type="text" placeholder="First Name" class="form-control">
+                      <br>
+                    </div>
+
+                    <div class="form-wrapper">
+                      <input id="lastName" type="text" placeholder="Last Name" class="form-control">
+                      <br>
+                    </div>
+
+                    <div class="form-wrapper">
+                      <select name="" id="city" class="form-control">
+
+                        <option value="" disabled selected>City</option>
+
+                        <option value="Ampara">Ampara</option>
+                        <option value="Anuradhapura">Anuradhapura</option>
+                        <option value="Badulla">Badulla</option>
+                        <option value="Batticaloa">Batticaloa</option>
+                        <option value="Colombo">Colombo</option>
+                        <option value="Galle">Galle</option>
+                        <option value="Gampaha">Gampaha</option>
+                        <option value="Hambantota">Hambantota</option>
+                        <option value="Jaffna">Jaffna</option>
+                        <option value="Kalutara">Kalutara</option>
+                        <option value="Kandy">Kandy</option>
+                        <option value="Kegalle">Kegalle</option>
+                        <option value="Kilinochchi">Kilinochchi</option>
+                        <option value="Kurunegala">Kurunegala</option>
+                        <option value="Mannar">Mannar</option>
+                        <option value="Matale">Matale</option>
+                        <option value="Matara">Matara</option>
+                        <option value="Monaragala">Monaragala</option>
+                        <option value="Mullaitivu">Mullaitivu</option>
+                        <option value="Nuwara Eliya">Nuwara Eliya</option>
+                        <option value="Polonnaruwa">Polonnaruwa</option>
+                        <option value="Puttalam">Puttalam</option>
+                        <option value="Ratnapura">Ratnapura</option>
+                        <option value="Trincomalee">Trincomalee</option>
+                        <option value="Vavuniya">Vavuniya</option>
+
+                      </select>
+                      <br>
+                    </div>
+
+                    <div class="form-wrapper">
+                      <input id="phone" type="text" placeholder="Phone" class="form-control">
+                      <br>
+                    </div>
+
+                    <div class="form-wrapper">
+                      <select name="" id="gender" class="form-control">
+
+                        <option value="" disabled selected>Gender</option>
+
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+
+                      </select>
+                      <br>
+                    </div>
+
+                    <div class="form-wrapper">
+                      <input id="address" type="text" placeholder="Address" class="form-control">
+                      <br>
+                    </div>
+
+                    <div class="form-wrapper">
+                      <input id="bio" type="text" placeholder="Bio" class="form-control">
+                      <br>
+                    </div>
+
+                    <div class="form-group container-login100-form-btn">
+                      <button class="btn btn-dark btn-lg btn-block" id="btn-update" type="button">
+                        Update
+                      </button>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+
+              <script src="/js/database.js"></script>
+              <script src="/js/user.js"></script>
+
+            </div>
+
+            <!-- modal to delete -->
+            <div class="modal fade" id="delete-out">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete a Time Slot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure ?
+                    <form id="deleteform">
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="hidden" class="form-control" id="deltekeys" />
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                      data-dismiss="modal" 2>Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script src="/js/database.js"></script>
+            <script src="/js/busroutes.js"></script>
+
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </section>
+  </div>
+
   <div style="margin-left:270px; margin-top:50px">
     <div class="w3-padding">TOD - Public Transport Management System.</div>
-
-    <div id="manage-drivers" class="w3-container city" style="display:none">
-      <h2>Manage Drivers</h2>
-    </div>
-
-    <div id="manage-buses" class="w3-container city" style="display:none">
-      <h2>Manage Buses</h2>
-    </div>
-
-    <div id="manage-reports" class="w3-container city" style="display:none">
-      <h2>Student Reports</h2>
-    </div>
-
-    <div id="manage-reviews" class="w3-container city" style="display:none">
-      <h2>Settings</h2>
-    </div>
-
-    <div id="settings" class="w3-container city" style="display:none">
-      <h2>Settings</h2>
-    </div>
-
     <script>
       $(function () {
         //$("#manage-drivers").load("manage-drivers.html");
