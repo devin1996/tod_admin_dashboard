@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>TOD Admin</title>
+    <title>TOD CGR Admin</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -50,7 +50,7 @@
                     <span class="login100-form-title p-b-32">
                         TOD
                         <span class="txt1 p-b-11">
-                            Admin Login
+                            CGR Admin Login
                         </span>
                     </span>
 
@@ -96,8 +96,8 @@
                 <div>
                 <div style="text-align: right">
                     <br>
-                    <a href="cgr-sign-in.html" class="txt3" >
-                        CGR Admin Panel Login ? click here.
+                    <a href="AdminSignIn.html" class="txt3" >
+                        Bus Admin Panel Login ? click here.
                     </a>
                     <br>
                     <a href="bus-company-sign-in.html" class="txt3" >
@@ -132,7 +132,7 @@
                 userID = firebase.auth().currentUser.uid;
                 firebase.database().ref('Admin/' + userID).once('value').then(function (snapshot) {
                     if (snapshot.val()) {
-                        window.location.href = "admin-new-panel.html";
+                        window.location.href = "cgr-admin-panel.html";
 
                     }
                     else {

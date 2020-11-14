@@ -7,6 +7,7 @@ database.ref("timeSlots").child("busTime").once("value", function (snapshot) {
 
         snapshot.forEach(function (childSnapshot) {
 
+            
             var val = childSnapshot.val();
             var timeslotkey = val.timeSlotKey;
 

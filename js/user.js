@@ -128,3 +128,96 @@ $("#btn-update").click(function () {
     }
 
 });
+
+//Read Passenger Data
+var databaseUserSection = firebase.database();
+const passengerRef = databaseUserSection.ref("User").child("Passenger");
+const driverRef = databaseUserSection.ref("User").child("Driver");
+const connductorRef = databaseUserSection.ref("User").child("Conductor");
+
+// Task 4 ------------------------------------------
+
+passengerRef.on("value",
+
+    (snapshot) => {
+        const listTableBody = document.getElementById("list-table-passenger");
+
+        // clear all the table rows first
+        listTableBody.textContent = "";
+
+        snapshot.forEach((child) => {
+            issue = child.val();
+            //console.log(issue);
+            var row = document.createElement("tr");
+            var x = "hi";
+
+            row.innerHTML = "<td>" + x + "</td><td><img width='128px' height='128px' src='" + issue.image + "'/></td><td>" +
+                issue.phone + "</td><td>" + issue.name + "</td><td>" +
+                 issue.email + "</td><td>" + issue.address + "</td>";
+            listTableBody.append(row);
+        });
+
+    },
+
+    (error) => {
+        console.log("Error: " + error.code);
+    }
+
+);
+
+driverRef.on("value",
+
+    (snapshot) => {
+        const listTableBody = document.getElementById("list-table-dri");
+
+        // clear all the table rows first
+        listTableBody.textContent = "";
+
+        snapshot.forEach((child) => {
+            issue = child.val();
+            //console.log(issue);
+            var row = document.createElement("tr");
+            var x = "hi";
+
+            row.innerHTML = "<td>" + x + "</td><td><img width='128px' height='128px' src='" + issue.image + "'/></td><td>" +
+                issue.phone + "</td><td>" + issue.name + "</td><td>" +
+                 issue.email + "</td><td>" + issue.address + "</td>";
+            listTableBody.append(row);
+        });
+
+    },
+
+    (error) => {
+        console.log("Error: " + error.code);
+    }
+
+);
+
+connductorRef.on("value",
+
+    (snapshot) => {
+        const listTableBody = document.getElementById("list-table-con");
+
+        // clear all the table rows first
+        listTableBody.textContent = "";
+
+        snapshot.forEach((child) => {
+            issue = child.val();
+            //console.log(issue);
+            var row = document.createElement("tr");
+            var x = "hi";
+
+            row.innerHTML = "<td>" + x + "</td><td><img width='128px' height='128px' src='" + issue.image + "'/></td><td>" +
+                issue.phone + "</td><td>" + issue.name + "</td><td>" +
+                 issue.email + "</td><td>" + issue.address + "</td>";
+            listTableBody.append(row);
+        });
+
+    },
+
+    (error) => {
+        console.log("Error: " + error.code);
+    }
+
+);
+
