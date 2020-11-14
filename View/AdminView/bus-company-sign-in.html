@@ -132,7 +132,7 @@
                 userID = firebase.auth().currentUser.uid;
                 firebase.database().ref('Admin/' + userID).once('value').then(function (snapshot) {
                     if (snapshot.val()) {
-                        window.location.href = "bus-company-panel.html";
+                        window.location.href = "cgr-admin-panel.html";
 
                     }
                     else {
