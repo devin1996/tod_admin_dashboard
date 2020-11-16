@@ -153,7 +153,7 @@ passengerRef.on("value",
 
             row.innerHTML = "<td>" + x + "</td><td><img width='128px' height='128px' src='" + issue.image + "'/></td><td>" +
                 issue.phone + "</td><td>" + issue.name + "</td><td>" +
-                 issue.email + "</td><td>" + issue.address + "</td>";
+                issue.email + "</td><td>" + issue.address + "</td>";
             listTableBody.append(row);
         });
 
@@ -165,33 +165,6 @@ passengerRef.on("value",
 
 );
 
-driverRef.on("value",
-
-    (snapshot) => {
-        const listTableBody = document.getElementById("list-table-dri");
-
-        // clear all the table rows first
-        listTableBody.textContent = "";
-
-        snapshot.forEach((child) => {
-            issue = child.val();
-            //console.log(issue);
-            var row = document.createElement("tr");
-            var x = "hi";
-
-            row.innerHTML = "<td>" + x + "</td><td><img width='128px' height='128px' src='" + issue.image + "'/></td><td>" +
-                issue.phone + "</td><td>" + issue.name + "</td><td>" +
-                 issue.email + "</td><td>" + issue.address + "</td>";
-            listTableBody.append(row);
-        });
-
-    },
-
-    (error) => {
-        console.log("Error: " + error.code);
-    }
-
-);
 
 connductorRef.on("value",
 
@@ -209,7 +182,7 @@ connductorRef.on("value",
 
             row.innerHTML = "<td>" + x + "</td><td><img width='128px' height='128px' src='" + issue.image + "'/></td><td>" +
                 issue.phone + "</td><td>" + issue.name + "</td><td>" +
-                 issue.email + "</td><td>" + issue.address + "</td>";
+                issue.email + "</td><td>" + issue.address + "</td>";
             listTableBody.append(row);
         });
 
@@ -220,4 +193,111 @@ connductorRef.on("value",
     }
 
 );
+
+function searchPassenger() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchPassenger");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("passengerTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
+}
+
+////////////////////////////////////////////////////////////////Driver CRUD ///////////////////////////////////////////////////////////////////////////////
+//Insert new Driver
+function insertNewDriver() {
+
+    var driverMobileNo = document.getElementById("driverMobileNo").value;
+    var driverEmail = document.getElementById("driverEmail").value;
+    var driverName = document.getElementById("driverName").value;
+    var driverPwd = document.getElementById("driverPwd").value;
+    var driverAddress = document.getElementById("driverAddress").value;
+    var driverBusCompany = document.getElementById("driverBusCompany").value;
+    var driverBus = document.getElementById("driverBus").value;
+    var driverEffectiveDate = document.getElementById("driverEffectiveDate").value;
+
+
+    var id = new Date().getTime() + Math.random();
+    var round = Math.round(id);
+    var curdate = new Date();
+    // var searchkey = from + to;
+
+    firebase.database().ref("User").child("Driver").child(driverMobileNo).set({
+
+        address: driverAddress,
+        email: driverEmail,
+        image: "",
+        name: driverName,
+        password: driverPwd,
+        phone: driverMobileNo,
+        phoneOrder: driverMobileNo,
+        driverEffectiveDate: driverEffectiveDate,
+        driverBusCompany: driverBusCompany,
+        driverBus: driverBus,
+
+
+    });
+
+}
+
+//Read Current Drivers
+driverRef.on("value",
+
+    (snapshot) => {
+        const listTableBody = document.getElementById("list-table-dri");
+
+        // clear all the table rows first
+        listTableBody.textContent = "";
+
+        snapshot.forEach((child) => {
+            issue = child.val();
+            //console.log(issue);
+            var row = document.createElement("tr");
+            var x = "hi";
+
+            row.innerHTML = "<td>" + x + "</td><td><img width='80px' height='80px' src='" + issue.image + "'/></td><td>" +
+                issue.phone + "</td><td>" + issue.name + "</td><td>" +
+                issue.email + "</td><td>" + issue.address + "</td><td>" +
+                issue.driverEffectiveDate + "</td><td>" + issue.driverBus + "</td><td>" + issue.driverBusCompany +
+                '</td><td><a href="#" class="nav-link" data-toggle="modal"data-target="#update-driver"><button type="button" class="btn btn-outline-warning edits_btn">Edit</button></td>'
+                + '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#delete-driver"><button type="button" class="btn btn-outline-danger del_btn">Delete</button></td>';
+            listTableBody.append(row);
+        });
+
+    },
+
+    (error) => {
+        console.log("Error: " + error.code);
+    }
+
+);
+
+//Delete Curren Driver
+$("#driverTable").on('click', '.del_btn', function () {
+    // get the current row
+    var currentRow = $(this).closest("tr");
+
+    var deleteKey = currentRow.find("td:eq(3)").text();
+    document.getElementById('delteKeysTimeSlot').value = deleteKey;
+
+});
+
+function deleteBusDriver() {
+
+    var timeSlotKey = document.getElementById("delteKeysTimeSlot").value;
+    firebase.database().ref("timeSlots").child("busTime").child(timeSlotKey).remove();
+}
+
 
