@@ -19,24 +19,24 @@ database.ref("timeSlots").child("busTime").once("value", function (snapshot) {
             content += '<td class="inputValue">' + val.to + '</td>';
             content += '<td class="inputValue">' + val.depTime + '</td>';
             content += '<td class="inputValue">' + val.arrTime + '</td>';
-            content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#update-out"><button type="button" class="btn btn-outline-warning edits_btn">Edit</button></td>';
-            content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#delete-out"><button type="button" class="btn btn-outline-danger del_btn">Delete</button></td>';
+            content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#update-out-time-slot"><button type="button" class="btn btn-outline-warning edits_btn">Edit</button></td>';
+            content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#delete-out-time-slot"><button type="button" class="btn btn-outline-danger del_btn">Delete</button></td>';
             content += '</tr>';
 
         });
 
-        $('#myTable').append(content);
+        $('#tableTimeSlot').append(content);
 
 
     }
 
 });
 
-function myFunction() {
+function timeSlotFromSearch() {
     var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
+    input = document.getElementById("fromSearchTimeSlot");
     filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
+    table = document.getElementById("tableTimeSlot");
     tr = table.getElementsByTagName("tr");
 
     for (i = 0; i < tr.length; i++) {
@@ -51,13 +51,15 @@ function myFunction() {
         }
     }
 
+    
+
 }
 
-function functionTo() {
+function timeSlotToSearch() {
     var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("To");
+    input = document.getElementById("toSearchTimeSlot");
     filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
+    table = document.getElementById("tableTimeSlot");
     tr = table.getElementsByTagName("tr");
 
     for (i = 0; i < tr.length; i++) {
@@ -74,23 +76,17 @@ function functionTo() {
 
 }
 
-$("#myTable").on('click', '.del_btn', function () {
+$("#tableTimeSlot").on('click', '.del_btn', function () {
     // get the current row
     var currentRow = $(this).closest("tr");
 
-    var deleteKey = currentRow.find("td:eq(0)").text(); // get current row 1st TD value
-    //var col2 = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
-    //var col3 = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
-    //var data = col1 + "\n" + col2 + "\n" + col3;
-
-    //alert(data);
-    document.getElementById('deltekeys').value = deleteKey;
-
+    var deleteKey = currentRow.find("td:eq(0)").text();
+    document.getElementById('delteKeysTimeSlot').value = deleteKey;
 
 });
 
 
-$("#myTable").on('click', '.edits_btn', function () {
+$("#tableTimeSlot").on('click', '.edits_btn', function () {
     // get the current row
     var currentRow = $(this).closest("tr");
 
@@ -110,14 +106,13 @@ $("#myTable").on('click', '.edits_btn', function () {
     document.getElementById("eDepTime").value = getDepTime;
     document.getElementById("eArrTime").value = getArrTime;
 
-    //document.getElementById('today').value = moment().format('YYYY-MM-DD');
 
 });
 
 function insertBusTimeSlot() {
 
     var from = document.getElementById("inputFrom").value;
-    var to = document.getElementById("inputTo").value;
+    var to = document.getElementById("inputToSlot").value;
     var depTime = document.getElementById("inputDepTime").value;
     var arrTime = document.getElementById("inputArrTime").value;
     var rideNo = document.getElementById("inputRideNo").value;
@@ -125,10 +120,7 @@ function insertBusTimeSlot() {
 
     var id = new Date().getTime() + Math.random();
     var round = Math.round(id);
-    //var dates_as_int = dates.map(Date.parse);
     var curdate = new Date();
-
-
     var searchkey = from + to;
     var timeSlotKey = "ts" + round + curdate;
 
@@ -150,16 +142,12 @@ function insertBusTimeSlot() {
 function editBusTimeSlot() {
 
     var timeSlotKey = document.getElementById("eTimeSlotKey").value;
-    //var routeRegNo = document.getElementById("eRouteRegNo").value;
     var from = document.getElementById("eFrom").value;
     var to = document.getElementById("eTo").value;
     var depTime = document.getElementById("eDepTime").value;
     var arrTime = document.getElementById("eArrTime").value;
     var rideNo = document.getElementById("eRideNo").value;
-    //var lastUpdate = document.getElementById("eUpdateDate").value;
-
     var searchkey = from + to;
-
 
     firebase.database().ref("timeSlots").child("busTime").child(timeSlotKey).set({
 
@@ -175,24 +163,9 @@ function editBusTimeSlot() {
 }
 
 
- //Edit bus time slot
- function deleteBusTimeSlot() {
+ //Delete bus time slot
+ function deleteBusTimeSlotz() {
 
-    var timeSlotKey = document.getElementById("deltekeys").value;
-    //var routeRegNo = document.getElementById("eRouteRegNo").value;
-    // var from = document.getElementById("eFrom").value;
-    // var to = document.getElementById("eTo").value;
-    // var depTime = document.getElementById("eDepTime").value;
-    // var arrTime = document.getElementById("eArrTime").value;
-    // var rideNo = document.getElementById("eRideNo").value;
-    //var lastUpdate = document.getElementById("eUpdateDate").value;
-
-    //var searchkey = from + to;
-
-
+    var timeSlotKey = document.getElementById("delteKeysTimeSlot").value;
     firebase.database().ref("timeSlots").child("busTime").child(timeSlotKey).remove();
 }
-
-// $(function () {
-//     $("#nav-placeholder").load("route-navbar.html");
-// });

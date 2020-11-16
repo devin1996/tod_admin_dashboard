@@ -250,7 +250,7 @@
 
 
   <!-- modal to update -->
-  <div class="modal fade" id="update-out">
+  <div class="modal fade" id="update-out-time-slot">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -285,11 +285,11 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Departure Time</label>
-                <input type="text" class="form-control" id="eDepTime" />
+                <input type="time" class="form-control" id="eDepTime" />
               </div>
               <div class="form-group col-md-6">
                 <label for="inputPassword4">Arrival Time</label>
-                <input type="text" class="form-control" id="eArrTime" />
+                <input type="time" class="form-control" id="eArrTime" />
               </div>
             </div>
 
@@ -299,14 +299,85 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-          <button onclick="editBusTimeSlot()" type="button" class="btn btn-danger" id="updatebtn"
+          <button onclick="editBusTimeSlot()" type="button" class="btn btn-danger" id="updateBtnTimeSlot"
             data-dismiss="modal">Update</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Small modal -->
+  <!-- Bus Route -->
+  update-out-bus-route
+  <div class="modal fade" id="update-out-bus-route">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Want to Edit this Time Slot?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+
+          <form>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Route Number</label>
+                <input type="text" class="form-control" id="getrouteNo001" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">DB Reg No</label>
+                <input type="text" class="form-control" id="getRegNo" disabled />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Route Name</label>
+                <input type="text" class="form-control" id="getrouteName" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Total Distance</label>
+                <input type="text" class="form-control" id="gettotalDistance" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Bus Type</label>
+                <select name id="getbusType" class="form-control">
+                  <option value disabled selected>Bus Type</option>
+                  <option value="Highluxury">High Luxury</option>
+                  <option value="luxury">Luxury</option>
+                  <option value="semiluxury">Semi Luxury</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Average Speed</label>
+                <input type="text" class="form-control" id="getavgSpeed" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Average Time</label>
+                <input type="time" class="form-control" id="getavgTime" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Effective Date</label>
+                <input type="date" class="form-control" id="getefectiveDate" />
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+          <button onclick="editBusRoute()" type="button" class="btn btn-danger" id="editBusRoute"
+            data-dismiss="modal">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <div id="dashboard-home" class="w3-container city" style="display:none">
@@ -339,7 +410,8 @@
 
                     <div class="form-group">
                       <label for="exampleInputEmail1" id="salw">Mobile No</label>
-                      <input type="text" class="form-control" id="mobileKey" placeholder="From">
+                      <input type="text" class="form-control" id="mobileKeynew" placeholder="Enter Passenger Mobile Number">
+                      <br>
                       <button type="button" class="btn btn-secondary" id="submitbooking" onclick="showbookings()">Search</button>
                     </div>
 
@@ -486,7 +558,7 @@
                   <h5 class="mb-0">
                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
                       aria-controls="collapseOne">
-                      Sea
+                      Add New Bus Route
                     </button>
                   </h5>
                 </div>
@@ -515,7 +587,7 @@
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputPassword4">Total Distance in KM</label>
-                          <input type="text" class="form-control" id="totalDistance" placeholder="Enter the distance"
+                          <input type="text" class="form-control" id="routetotalDistance" placeholder="Enter the distance"
                             required>
                         </div>
                       </div>
@@ -523,7 +595,7 @@
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="inputEmail4">Type</label>
-                          <select name id="busType" class="form-control">
+                          <select name id="routeBusType" class="form-control">
                             <option value disabled selected>Type</option>
                             <option value="Highluxury">High Luxury</option>
                             <option value="semiluxury">Luxury</option>
@@ -532,7 +604,7 @@
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputPassword4">Average Speed in Km/h</label>
-                          <input type="text" class="form-control" id="avgSpeed"
+                          <input type="text" class="form-control" id="routeAvgSpeed"
                             placeholder="Enter average Speed in Km/h" required>
                         </div>
                       </div>
@@ -540,17 +612,17 @@
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="inputEmail4">Average Time</label>
-                          <input type="time" class="form-control" id="avgTime" placeholder="Enter Name" required>
+                          <input type="time" class="form-control" id="routeAvgTime" placeholder="Enter Name" required>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputPassword4">Effective Date</label>
-                          <input type="date" class="form-control" id="inputTo" placeholder="Enter the distance"
+                          <input type="date" class="form-control" id="routeEffectiveDate" placeholder="Enter the distance"
                             required>
                         </div>
                       </div>
 
 
-                      <button type="button" onclick="insertRoute()" class="btn btn-dark btn-lg btn-block"
+                      <button type="button" onclick="insertBusRoute()" class="btn btn-dark btn-lg btn-block"
                         data-toggle="modal" data-target="#success-btnx">Insert Time
                         Slot</button>
                     </form>
@@ -571,13 +643,8 @@
                   <div class="card-body">
 
                     <div class="form-group">
-                      <label for="exampleInputEmail1">From</label>
-                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">To</label>
-                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="To"
-                        title="To">
+                      <label for="exampleInputEmail1">Search Route</label>
+                      <input type="text" class="form-control" id="routeNoInput" placeholder="Enter Route No" onkeyup="searchBusRoute()">
                     </div>
 
 
@@ -612,7 +679,7 @@
             </div>
 
             <!-- modal to delete -->
-            <div class="modal fade" id="delete-out">
+            <div class="modal fade" id="delete-out-bus-route">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -625,13 +692,13 @@
 
                       <div class="form-row">
                         <div class="form-group col-md-6">
-                          <input type="hidden" class="form-control" id="deltekeys" />
+                          <input type="hidden" class="form-control" id="deltekeysBusRoute" />
                         </div>
                     </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusRoute()"
                       data-dismiss="modal" 2>Delete</button>
                   </div>
                 </div>
@@ -689,17 +756,17 @@
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputPassword4">To</label>
-                          <input type="text" class="form-control" id="inputTo" placeholder="To">
+                          <input type="text" class="form-control" id="inputToSlot" placeholder="To">
                         </div>
                       </div>
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="inputEmail4">Departure Time</label>
-                          <input type="text" class="form-control" id="inputDepTime" placeholder="Departure Time">
+                          <input type="time" class="form-control" id="inputDepTime" placeholder="Departure Time">
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputPassword4">Arrival Time</label>
-                          <input type="text" class="form-control" id="inputArrTime" placeholder="Arrival Time">
+                          <input type="time" class="form-control" id="inputArrTime" placeholder="Arrival Time">
                         </div>
                       </div>
 
@@ -726,11 +793,11 @@
 
                     <div class="form-group">
                       <label for="exampleInputEmail1">From</label>
-                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                      <input type="text" class="form-control" id="fromSearchTimeSlot" placeholder="From" onkeyup="timeSlotFromSearch()">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">To</label>
-                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="To"
+                      <input type="text" class="form-control" id="toSearchTimeSlot" onkeyup="timeSlotToSearch()" placeholder="To"
                         title="To">
                     </div>
 
@@ -738,7 +805,7 @@
                     <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="From" title="From">
                                   <input type="text" id="To" onkeyup="functionTo()" placeholder="To" title="To"> -->
 
-                    <table id="myTable">
+                    <table id="tableTimeSlot">
 
                       <thead>
                         <tr class="header">
@@ -764,7 +831,7 @@
             </div>
 
             <!-- modal to delete -->
-            <div class="modal fade" id="delete-out">
+            <div class="modal fade" id="delete-out-time-slot">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -777,13 +844,13 @@
 
                       <div class="form-row">
                         <div class="form-group col-md-6">
-                          <input type="hidden" class="form-control" id="deltekeys" />
+                          <input type="hidden" class="form-control" id="delteKeysTimeSlot" />
                         </div>
                     </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlot()"
+                    <button type="button" class="btn btn-danger" id="delbtn" onclick="deleteBusTimeSlotz()"
                       data-dismiss="modal" 2>Delete</button>
                   </div>
                 </div>
