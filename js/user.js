@@ -166,34 +166,6 @@ passengerRef.on("value",
 );
 
 
-connductorRef.on("value",
-
-    (snapshot) => {
-        const listTableBody = document.getElementById("list-table-con");
-
-        // clear all the table rows first
-        listTableBody.textContent = "";
-
-        snapshot.forEach((child) => {
-            issue = child.val();
-            //console.log(issue);
-            var row = document.createElement("tr");
-            var x = "hi";
-
-            row.innerHTML = "<td>" + x + "</td><td><img width='128px' height='128px' src='" + issue.image + "'/></td><td>" +
-                issue.phone + "</td><td>" + issue.name + "</td><td>" +
-                issue.email + "</td><td>" + issue.address + "</td>";
-            listTableBody.append(row);
-        });
-
-    },
-
-    (error) => {
-        console.log("Error: " + error.code);
-    }
-
-);
-
 function searchPassenger() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("searchPassenger");
@@ -250,6 +222,8 @@ function insertNewDriver() {
 
     });
 
+    location.reload();
+
 }
 
 //Read Current Drivers
@@ -284,20 +258,259 @@ driverRef.on("value",
 
 );
 
-//Delete Curren Driver
+//Delete Current Driver
 $("#driverTable").on('click', '.del_btn', function () {
     // get the current row
     var currentRow = $(this).closest("tr");
 
-    var deleteKey = currentRow.find("td:eq(3)").text();
-    document.getElementById('delteKeysTimeSlot').value = deleteKey;
+    var deleteKey = currentRow.find("td:eq(2)").text();
+    document.getElementById('deltekeydriver').value = deleteKey;
+    //window.alert(deleteKey);
 
 });
 
 function deleteBusDriver() {
 
-    var timeSlotKey = document.getElementById("delteKeysTimeSlot").value;
-    firebase.database().ref("timeSlots").child("busTime").child(timeSlotKey).remove();
+    var driverDelKey = document.getElementById("deltekeydriver").value;
+    firebase.database().ref("User").child("Driver").child(driverDelKey).remove();
+    location.reload();
+}
+
+//Update Current Driver
+
+$("#driverTable").on('click', '.edits_btn', function () {
+    // get the current row
+    var currentRow = $(this).closest("tr");
+
+    var upDriName = currentRow.find("td:eq(3)").text();
+    var upDriMobile = currentRow.find("td:eq(2)").text();
+    var upDriEmail = currentRow.find("td:eq(4)").text();
+    var upDriAdd = currentRow.find("td:eq(5)").text();
+    var upDriBus = currentRow.find("td:eq(7)").text();
+    var upDriBusCom = currentRow.find("td:eq(8)").text();
+    var upDriEffDate = currentRow.find("td:eq(6)").text();
+
+    document.getElementById('upDriName').value = upDriName;
+    document.getElementById("upDriMobile").value = upDriMobile;
+    document.getElementById("upDriEmail").value = upDriEmail;
+    document.getElementById("upDriAdd").value = upDriAdd;
+    document.getElementById("upDriBus").value = upDriBus;
+    document.getElementById("upDriBusCom").value = upDriBusCom;
+    document.getElementById("upDriEffDate").value = upDriEffDate;
+
+
+});
+
+function updateBusDriver() {
+
+    var upDriName = document.getElementById("upDriName").value;
+    var upDriMobile = document.getElementById("upDriMobile").value;
+    var upDriEmail = document.getElementById("upDriEmail").value;
+    var upDriAdd = document.getElementById("upDriAdd").value;
+    var upDriBus = document.getElementById("upDriBus").value;
+    var upDriBusCom = document.getElementById("upDriBusCom").value;
+    var upDriEffDate = document.getElementById("upDriEffDate").value;
+
+
+    firebase.database().ref("User").child("Driver").child(upDriMobile).update({
+
+        address: upDriAdd,
+        email: upDriEmail,
+        name: upDriName,
+        driverEffectiveDate: upDriEffDate,
+        driverBusCompany: upDriBusCom,
+        driverBus: upDriBus,
+
+    });
+
+    location.reload();
 }
 
 
+//Search for the Driver
+function searchDriver() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchDriverInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("driverTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
+}
+
+
+//////////////////////////////////////////////////////////Conductor Crud Operations/////////////////////////////////////////////////////////
+
+
+connductorRef.on("value",
+
+    (snapshot) => {
+        const listTableBody = document.getElementById("list-table-con");
+
+        // clear all the table rows first
+        listTableBody.textContent = "";
+
+        snapshot.forEach((child) => {
+            issue = child.val();
+            //console.log(issue);
+            var row = document.createElement("tr");
+            var x = "hi";
+
+            row.innerHTML = "<td>" + x + "</td><td><img width='128px' height='128px' src='" + issue.image + "'/></td><td>" +
+                issue.phone + "</td><td>" + issue.name + "</td><td>" +
+                issue.email + "</td><td>" + issue.address + "</td>"
+                issue.driverEffectiveDate + "</td><td>" + issue.driverBus + "</td><td>" + issue.driverBusCompany +
+                '</td><td><a href="#" class="nav-link" data-toggle="modal"data-target="#update-driver"><button type="button" class="btn btn-outline-warning edits_btn">Edit</button></td>'
+                + '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#delete-driver"><button type="button" class="btn btn-outline-danger del_btn">Delete</button></td>';
+            listTableBody.append(row);
+        });
+
+    },
+
+    (error) => {
+        console.log("Error: " + error.code);
+    }
+
+);
+
+
+//Insert new Driver
+function insertNewConductor() {
+
+    var conMobileNo = document.getElementById("conMobileNo").value;
+    var conEmail = document.getElementById("conEmail").value;
+    var conName = document.getElementById("conName").value;
+    var conPwd = document.getElementById("conPwd").value;
+    var conAddress = document.getElementById("conAddress").value;
+    var conBusCompany = document.getElementById("conBusCompany").value;
+    var conBus = document.getElementById("conBus").value;
+    var conEffectiveDate = document.getElementById("conEffectiveDate").value;
+
+
+    var id = new Date().getTime() + Math.random();
+    var round = Math.round(id);
+    var curdate = new Date();
+    // var searchkey = from + to;
+
+    firebase.database().ref("User").child("Conductor").child(conMobileNo).set({
+
+        address: conAddress,
+        email: conEmail,
+        image: "",
+        name: conName,
+        password: conPwd,
+        phone: conMobileNo,
+        phoneOrder: conMobileNo,
+        driverEffectiveDate: conEffectiveDate,
+        driverBusCompany: conBusCompany,
+        driverBus: conBus,
+
+
+    });
+
+    location.reload();
+
+}
+
+
+//Delete Current Driver
+$("#conductorTable").on('click', '.del_btn', function () {
+    // get the current row
+    var currentRow = $(this).closest("tr");
+
+    var deleteKey = currentRow.find("td:eq(2)").text();
+    document.getElementById('deltekeydriver').value = deleteKey;
+    //window.alert(deleteKey);
+
+});
+
+function deleteBusDriver() {
+
+    var driverDelKey = document.getElementById("deltekeydriver").value;
+    firebase.database().ref("User").child("Driver").child(driverDelKey).remove();
+    location.reload();
+}
+
+//Update Current Driver
+
+$("#driverTable").on('click', '.edits_btn', function () {
+    // get the current row
+    var currentRow = $(this).closest("tr");
+
+    var upDriName = currentRow.find("td:eq(3)").text();
+    var upDriMobile = currentRow.find("td:eq(2)").text();
+    var upDriEmail = currentRow.find("td:eq(4)").text();
+    var upDriAdd = currentRow.find("td:eq(5)").text();
+    var upDriBus = currentRow.find("td:eq(7)").text();
+    var upDriBusCom = currentRow.find("td:eq(8)").text();
+    var upDriEffDate = currentRow.find("td:eq(6)").text();
+
+    document.getElementById('upDriName').value = upDriName;
+    document.getElementById("upDriMobile").value = upDriMobile;
+    document.getElementById("upDriEmail").value = upDriEmail;
+    document.getElementById("upDriAdd").value = upDriAdd;
+    document.getElementById("upDriBus").value = upDriBus;
+    document.getElementById("upDriBusCom").value = upDriBusCom;
+    document.getElementById("upDriEffDate").value = upDriEffDate;
+
+
+});
+
+function updateBusDriver() {
+
+    var upDriName = document.getElementById("upDriName").value;
+    var upDriMobile = document.getElementById("upDriMobile").value;
+    var upDriEmail = document.getElementById("upDriEmail").value;
+    var upDriAdd = document.getElementById("upDriAdd").value;
+    var upDriBus = document.getElementById("upDriBus").value;
+    var upDriBusCom = document.getElementById("upDriBusCom").value;
+    var upDriEffDate = document.getElementById("upDriEffDate").value;
+
+
+    firebase.database().ref("User").child("Driver").child(upDriMobile).update({
+
+        address: upDriAdd,
+        email: upDriEmail,
+        name: upDriName,
+        driverEffectiveDate: upDriEffDate,
+        driverBusCompany: upDriBusCom,
+        driverBus: upDriBus,
+
+    });
+
+    location.reload();
+}
+
+
+//Search for the Driver
+function searchDriver() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchDriverInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("driverTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
+}

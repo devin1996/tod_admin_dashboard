@@ -307,12 +307,11 @@
   </div>
 
   <!-- Bus Route -->
-  update-out-bus-route
   <div class="modal fade" id="update-out-bus-route">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Want to Edit this Time Slot?</h4>
+          <h4 class="modal-title">Want to Edit this Route ?</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
@@ -378,6 +377,71 @@
       </div>
     </div>
   </div>
+
+    <!-- Bus Route -->
+    <div class="modal fade" id="update-driver">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Want to Edit this Driver ?</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+  
+            <form>
+  
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">Driver Name</label>
+                  <input type="text" class="form-control" id="upDriName" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Mobile Number</label>
+                  <input type="text" class="form-control" id="upDriMobile" disabled />
+                </div>
+              </div>
+  
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">email</label>
+                  <input type="text" class="form-control" id="upDriEmail" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Driver Address</label>
+                  <input type="text" class="form-control" id="upDriAdd" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">Current Bus No</label>
+                  <input type="text" class="form-control" id="upDriBus" />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Bus Company</label>
+                  <input type="text" class="form-control" id="upDriBusCom" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">Effective Date</label>
+                  <input type="date" class="form-control" id="upDriEffDate" />
+                </div>
+              </div>
+  
+            </form>
+  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+  
+            <button onclick="updateBusDriver()" type="button" class="btn btn-danger" id="editBusRoute"
+              data-dismiss="modal">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
   <div id="dashboard-home" class="w3-container city" style="display:none">
@@ -1061,7 +1125,7 @@
                   <div class="card-body">
 
                     <div class="form-group">
-                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                      <input type="text" class="form-control" id="searchDriverInput" placeholder="Search for the Driver" onkeyup="searchDriver()">
                     </div>
 
 
@@ -1110,7 +1174,7 @@
 
                       <div class="form-row">
                         <div class="form-group col-md-6">
-                          <input type="hidden" class="form-control" id="deltekeys" />
+                          <input type="hidden" class="form-control" id="deltekeydriver" />
                         </div>
                     </form>
                   </div>
@@ -2060,10 +2124,10 @@
       }
     });
 
-    function autoRefreshPage() {
-      window.location = window.location.href;
-    }
-    setInterval('autoRefreshPage()', 120000);
+    // function autoRefreshPage() {
+    //   window.location = window.location.href;
+    // }
+    // setInterval('autoRefreshPage()', 120000);
 
   </script>
 
