@@ -367,12 +367,12 @@ connductorRef.on("value",
             var row = document.createElement("tr");
             var x = "hi";
 
-            row.innerHTML = "<td>" + x + "</td><td><img width='128px' height='128px' src='" + issue.image + "'/></td><td>" +
+            row.innerHTML = "<td>" + x + "</td><td><img width='80px' height='80px' src='" + issue.image + "'/></td><td>" +
                 issue.phone + "</td><td>" + issue.name + "</td><td>" +
-                issue.email + "</td><td>" + issue.address + "</td>"
-                issue.driverEffectiveDate + "</td><td>" + issue.driverBus + "</td><td>" + issue.driverBusCompany +
-                '</td><td><a href="#" class="nav-link" data-toggle="modal"data-target="#update-driver"><button type="button" class="btn btn-outline-warning edits_btn">Edit</button></td>'
-                + '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#delete-driver"><button type="button" class="btn btn-outline-danger del_btn">Delete</button></td>';
+                issue.email + "</td><td>" + issue.address + "</td><td>" +
+            issue.conEffectiveDate + "</td><td>" + issue.conBus + "</td><td>" + issue.conBusCompany +
+                '</td><td><a href="#" class="nav-link" data-toggle="modal"data-target="#update-con"><button type="button" class="btn btn-outline-warning edits_btn">Edit</button></td>'
+                + '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#delete-con"><button type="button" class="btn btn-outline-danger del_btn">Delete</button></td>';
             listTableBody.append(row);
         });
 
@@ -385,7 +385,7 @@ connductorRef.on("value",
 );
 
 
-//Insert new Driver
+//Insert new Conductor
 function insertNewConductor() {
 
     var conMobileNo = document.getElementById("conMobileNo").value;
@@ -412,9 +412,9 @@ function insertNewConductor() {
         password: conPwd,
         phone: conMobileNo,
         phoneOrder: conMobileNo,
-        driverEffectiveDate: conEffectiveDate,
-        driverBusCompany: conBusCompany,
-        driverBus: conBus,
+        conEffectiveDate: conEffectiveDate,
+        conBusCompany: conBusCompany,
+        conBus: conBus,
 
 
     });
@@ -424,68 +424,68 @@ function insertNewConductor() {
 }
 
 
-//Delete Current Driver
+//Delete Current Conductor
 $("#conductorTable").on('click', '.del_btn', function () {
     // get the current row
     var currentRow = $(this).closest("tr");
 
     var deleteKey = currentRow.find("td:eq(2)").text();
-    document.getElementById('deltekeydriver').value = deleteKey;
+    document.getElementById('conkeydriver').value = deleteKey;
     //window.alert(deleteKey);
 
 });
 
-function deleteBusDriver() {
+function deleteBusConductor() {
 
-    var driverDelKey = document.getElementById("deltekeydriver").value;
-    firebase.database().ref("User").child("Driver").child(driverDelKey).remove();
+    var conDelKey = document.getElementById("conkeydriver").value;
+    firebase.database().ref("User").child("Conductor").child(conDelKey).remove();
     location.reload();
 }
 
-//Update Current Driver
+//Update Current Conductor
 
-$("#driverTable").on('click', '.edits_btn', function () {
+$("#conductorTable").on('click', '.edits_btn', function () {
     // get the current row
     var currentRow = $(this).closest("tr");
 
-    var upDriName = currentRow.find("td:eq(3)").text();
-    var upDriMobile = currentRow.find("td:eq(2)").text();
-    var upDriEmail = currentRow.find("td:eq(4)").text();
-    var upDriAdd = currentRow.find("td:eq(5)").text();
-    var upDriBus = currentRow.find("td:eq(7)").text();
-    var upDriBusCom = currentRow.find("td:eq(8)").text();
-    var upDriEffDate = currentRow.find("td:eq(6)").text();
+    var upConName = currentRow.find("td:eq(3)").text();
+    var upConMobile = currentRow.find("td:eq(2)").text();
+    var upConEmail = currentRow.find("td:eq(4)").text();
+    var upConAdd = currentRow.find("td:eq(5)").text();
+    var upConBus = currentRow.find("td:eq(7)").text();
+    var upConBusCom = currentRow.find("td:eq(8)").text();
+    var upConEffDate = currentRow.find("td:eq(6)").text();
 
-    document.getElementById('upDriName').value = upDriName;
-    document.getElementById("upDriMobile").value = upDriMobile;
-    document.getElementById("upDriEmail").value = upDriEmail;
-    document.getElementById("upDriAdd").value = upDriAdd;
-    document.getElementById("upDriBus").value = upDriBus;
-    document.getElementById("upDriBusCom").value = upDriBusCom;
-    document.getElementById("upDriEffDate").value = upDriEffDate;
+    document.getElementById('upConName').value = upConName;
+    document.getElementById("upConMobile").value = upConMobile;
+    document.getElementById("upConEmail").value = upConEmail;
+    document.getElementById("upConAdd").value = upConAdd;
+    document.getElementById("upConBus").value = upConBus;
+    document.getElementById("upConBusCom").value = upConBusCom;
+    document.getElementById("upConEffDate").value = upConEffDate;
 
 
 });
 
-function updateBusDriver() {
+function updateConDriver() {
 
-    var upDriName = document.getElementById("upDriName").value;
-    var upDriMobile = document.getElementById("upDriMobile").value;
-    var upDriEmail = document.getElementById("upDriEmail").value;
-    var upDriAdd = document.getElementById("upDriAdd").value;
-    var upDriBus = document.getElementById("upDriBus").value;
-    var upDriBusCom = document.getElementById("upDriBusCom").value;
-    var upDriEffDate = document.getElementById("upDriEffDate").value;
+    var upConName = document.getElementById("upConName").value;
+    var upConMobile = document.getElementById("upConMobile").value;
+    var upConEmail = document.getElementById("upConEmail").value;
+    var upConAdd = document.getElementById("upConAdd").value;
+    var upConBus = document.getElementById("upConBus").value;
+    var upConBusCom = document.getElementById("upConBusCom").value;
+    var upConEffDate = document.getElementById("upConEffDate").value;
 
 
-    firebase.database().ref("User").child("Driver").child(upDriMobile).update({
+    firebase.database().ref("User").child("Conductor").child(upConMobile).update({
 
-        address: upDriAdd,
-        email: upDriEmail,
-        name: upDriName,
-        driverEffectiveDate: upDriEffDate,
-        driverBusCompany: upDriBusCom,
-        driverBus: upDriBus,
+        address: upConAdd,
+        email: upConEmail,
+        name: upConName,
+        conEffectiveDate: upConEffDate,
+        conBusCompany: upConBusCom,
+        conBus: upConBus,
 
     });
 
@@ -494,11 +494,11 @@ function updateBusDriver() {
 
 
 //Search for the Driver
-function searchDriver() {
+function searchConductor() {
     var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("searchDriverInput");
+    input = document.getElementById("searchConInput");
     filter = input.value.toUpperCase();
-    table = document.getElementById("driverTable");
+    table = document.getElementById("conductorTable");
     tr = table.getElementsByTagName("tr");
 
     for (i = 0; i < tr.length; i++) {

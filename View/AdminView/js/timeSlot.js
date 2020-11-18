@@ -149,7 +149,7 @@ function editBusTimeSlot() {
     var rideNo = document.getElementById("eRideNo").value;
     var searchkey = from + to;
 
-    firebase.database().ref("timeSlots").child("busTime").child(timeSlotKey).set({
+    firebase.database().ref("timeSlots").child("busTime").child(timeSlotKey).update({
 
         timeSlotKey: timeSlotKey,
         arrTime: arrTime,
