@@ -1,71 +1,73 @@
-const busRef = databaseUserSection.ref("vehicle").child("bus");
-const trainRef = databaseUserSection.ref("vehicle").child("train");
+//const busRef = databaseUserSection.ref("vehicle").child("bus");
+//const trainRef = databaseUserSection.ref("vehicle").child("train");
 
+var database = firebase.database();
 //////////////////////////////////////////////////////////Bus Crud Operations/////////////////////////////////////////////////////////
+database.ref("vehicle").child("bus").once("value", function (snapshot) {
+    if (snapshot.exists()) {
+        var content = '';
+
+        snapshot.forEach(function (childSnapshot) {
 
 
-busRef.on("value",
+            var val = childSnapshot.val();
+            var bussearchkey = val.bussearchkey;
+            //window.alert(bussearchkey);
 
-    (snapshot) => {
-        const listTableBody = document.getElementById("list-table-con");
 
-        // clear all the table rows first
-        listTableBody.textContent = "";
+            content += '<tr class="data">';
+            content += '<td class="inputValue">' + bussearchkey + '</td>';
+            content += '<td class="inputValue">' + val.busRegNo + '</td>';
+            content += '<td class="inputValue">' + val.busComNo + '</td>';
+            content += '<td class="inputValue">' + val.busConNo + '</td>';
+            content += '<td class="inputValue">' + val.busDriNo + '</td>';
+            content += '<td class="inputValue">' + val.busType + '</td>';
+            content += '<td class="inputValue">' + val.busRouteNo + '</td>';
+            content += '<td class="inputValue">' + val.busEffDate + '</td>';
+            content += '<td class="inputValue">' + val.busModel + '</td>';
+            content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#update-out-bus"><button type="button" class="btn btn-outline-warning edits_btn">Edit</button></td>';
+            content += '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#delete-out-bus"><button type="button" class="btn btn-outline-danger del_btn">Delete</button></td>';
+            content += '</tr>';
 
-        snapshot.forEach((child) => {
-            issue = child.val();
-            //console.log(issue);
-            var row = document.createElement("tr");
-            var x = "hi";
-
-            row.innerHTML = "<td>" + x + "</td><td><img width='80px' height='80px' src='" + issue.image + "'/></td><td>" +
-                issue.phone + "</td><td>" + issue.name + "</td><td>" +
-                issue.email + "</td><td>" + issue.address + "</td><td>" +
-            issue.conEffectiveDate + "</td><td>" + issue.conBus + "</td><td>" + issue.conBusCompany +
-                '</td><td><a href="#" class="nav-link" data-toggle="modal"data-target="#update-con"><button type="button" class="btn btn-outline-warning edits_btn">Edit</button></td>'
-                + '<td><a href="#" class="nav-link" data-toggle="modal"data-target="#delete-con"><button type="button" class="btn btn-outline-danger del_btn">Delete</button></td>';
-            listTableBody.append(row);
         });
 
-    },
+        $('#busTableDisplay').append(content);
 
-    (error) => {
-        console.log("Error: " + error.code);
+
     }
 
-);
+});
 
 
 //Insert new Conductor
-function insertNewConductor() {
+function insertNewBus() {
 
-    var conMobileNo = document.getElementById("conMobileNo").value;
-    var conEmail = document.getElementById("conEmail").value;
-    var conName = document.getElementById("conName").value;
-    var conPwd = document.getElementById("conPwd").value;
-    var conAddress = document.getElementById("conAddress").value;
-    var conBusCompany = document.getElementById("conBusCompany").value;
-    var conBus = document.getElementById("conBus").value;
-    var conEffectiveDate = document.getElementById("conEffectiveDate").value;
+    var busRegNo = document.getElementById("busRegNo").value;
+    var busComNo = document.getElementById("busComNo").value;
+    var busDriNo = document.getElementById("busDriNo").value;
+    var busConNo = document.getElementById("busConNo").value;
+    var busType = document.getElementById("busType").value;
+    var busRouteNo = document.getElementById("busRouteNo").value;
+    var busModel = document.getElementById("busModel").value;
+    var busEffDate = document.getElementById("busEffDate").value;
 
 
     var id = new Date().getTime() + Math.random();
     var round = Math.round(id);
     var curdate = new Date();
-    // var searchkey = from + to;
+    var bussearchkey = busRegNo + round + curdate;
 
-    firebase.database().ref("User").child("Conductor").child(conMobileNo).set({
+    firebase.database().ref("vehicle").child("bus").child(bussearchkey).set({
 
-        address: conAddress,
-        email: conEmail,
-        image: "",
-        name: conName,
-        password: conPwd,
-        phone: conMobileNo,
-        phoneOrder: conMobileNo,
-        conEffectiveDate: conEffectiveDate,
-        conBusCompany: conBusCompany,
-        conBus: conBus,
+        busRegNo: busRegNo,
+        bussearchkey: bussearchkey,
+        busComNo: busComNo,
+        busDriNo: busDriNo,
+        busConNo: busConNo,
+        busType: busType,
+        busRouteNo: busRouteNo,
+        busModel: busModel,
+        busEffDate: busEffDate,
 
 
     });
@@ -76,67 +78,67 @@ function insertNewConductor() {
 
 
 //Delete Current Conductor
-$("#conductorTable").on('click', '.del_btn', function () {
+$("#busTableDisplay").on('click', '.del_btn', function () {
     // get the current row
     var currentRow = $(this).closest("tr");
 
-    var deleteKey = currentRow.find("td:eq(2)").text();
-    document.getElementById('conkeydriver').value = deleteKey;
+    var deleteKey = currentRow.find("td:eq(0)").text();
+    document.getElementById('delbtnBus').value = deleteKey;
     //window.alert(deleteKey);
 
 });
 
-function deleteBusConductor() {
+function deleteBus() {
 
-    var conDelKey = document.getElementById("conkeydriver").value;
-    firebase.database().ref("User").child("Conductor").child(conDelKey).remove();
+    var conDelKey = document.getElementById("delbtnBus").value;
+    firebase.database().ref("vehicle").child("bus").child(conDelKey).remove();
     location.reload();
 }
 
 //Update Current Conductor
 
-$("#conductorTable").on('click', '.edits_btn', function () {
+$("#busTableDisplay").on('click', '.edits_btn', function () {
     // get the current row
     var currentRow = $(this).closest("tr");
 
-    var upConName = currentRow.find("td:eq(3)").text();
-    var upConMobile = currentRow.find("td:eq(2)").text();
-    var upConEmail = currentRow.find("td:eq(4)").text();
-    var upConAdd = currentRow.find("td:eq(5)").text();
-    var upConBus = currentRow.find("td:eq(7)").text();
-    var upConBusCom = currentRow.find("td:eq(8)").text();
-    var upConEffDate = currentRow.find("td:eq(6)").text();
+    var busRegNo = currentRow.find("td:eq(1)").text();
+    var bussearchkey = currentRow.find("td:eq(0)").text();
+    var busComNo = currentRow.find("td:eq(2)").text();
+    var busConNo = currentRow.find("td:eq(3)").text();
+    var busDriNo = currentRow.find("td:eq(4)").text();
+    var busRouteNo = currentRow.find("td:eq(6)").text();
+    var busEffDate = currentRow.find("td:eq(7)").text();
 
-    document.getElementById('upConName').value = upConName;
-    document.getElementById("upConMobile").value = upConMobile;
-    document.getElementById("upConEmail").value = upConEmail;
-    document.getElementById("upConAdd").value = upConAdd;
-    document.getElementById("upConBus").value = upConBus;
-    document.getElementById("upConBusCom").value = upConBusCom;
-    document.getElementById("upConEffDate").value = upConEffDate;
+    document.getElementById('busRegNo').value = busRegNo;
+    document.getElementById("bussearchkey").value = bussearchkey;
+    document.getElementById("busComNo").value = busComNo;
+    document.getElementById("busConNo").value = busConNo;
+    document.getElementById("busDriNo").value = busDriNo;
+    document.getElementById("busRouteNo").value = busRouteNo;
+    document.getElementById("busEffDate").value = busEffDate;
 
 
 });
 
-function updateConDriver() {
+function updateBus() {
 
-    var upConName = document.getElementById("upConName").value;
-    var upConMobile = document.getElementById("upConMobile").value;
-    var upConEmail = document.getElementById("upConEmail").value;
-    var upConAdd = document.getElementById("upConAdd").value;
-    var upConBus = document.getElementById("upConBus").value;
-    var upConBusCom = document.getElementById("upConBusCom").value;
-    var upConEffDate = document.getElementById("upConEffDate").value;
+    var busRegNo = document.getElementById("busRegNo").value;
+    var bussearchkey = document.getElementById("bussearchkey").value;
+    var busComNo = document.getElementById("busComNo").value;
+    var busConNo = document.getElementById("busConNo").value;
+    var busDriNo = document.getElementById("busDriNo").value;
+    var busRouteNo = document.getElementById("busRouteNo").value;
+    var busEffDate = document.getElementById("busEffDate").value;
 
 
-    firebase.database().ref("User").child("Conductor").child(upConMobile).update({
+    firebase.database().ref("vehicle").child("bus").child(bussearchkey).update({
 
-        address: upConAdd,
-        email: upConEmail,
-        name: upConName,
-        conEffectiveDate: upConEffDate,
-        conBusCompany: upConBusCom,
-        conBus: upConBus,
+
+        busComNo: busComNo,
+        busDriNo: busDriNo,
+        busConNo: busConNo,
+        busRouteNo: busRouteNo,
+        busEffDate: busEffDate,
 
     });
 
