@@ -1,7 +1,8 @@
 //Insert New Company
 function insertNewCompany() {
 
-    var companyRegNo = document.getElementById("comEmail").value;
+    var companyRegNo = document.getElementById("comRegNoNew").value;
+    var companyMobileNo = document.getElementById("comTelNo").value;
 
     var id = new Date().getTime() + Math.random();
     var round = Math.round(id);
@@ -9,10 +10,12 @@ function insertNewCompany() {
 
     var companyRandomKey = "bc" + companyRegNo + round + curdate;
 
-    firebase.database().ref("Company").child("busCompany").child(companyRegNo).set({
+    //alert(companyRegNo);
+
+    firebase.database().ref("Company").child("busCompany").child(companyMobileNo).set({
 
         companyRandomKey: companyRandomKey,
-        companyRegNo: companyRegNo,
+        companyRegNo: document.getElementById("comRegNoNew").value,
         companyName: document.getElementById("comName").value,
         comOwnerName: document.getElementById("comOwnerName").value,
         comOwnerNIC: document.getElementById("comOwnerNIC").value,
@@ -20,6 +23,7 @@ function insertNewCompany() {
         comAddress: document.getElementById("comAddress").value,
         comTelNo: document.getElementById("comTelNo").value,
         comEffDate: document.getElementById("comEffDate").value,
+        comPwd: document.getElementById("comPwd").value,
 
     });
 
@@ -37,7 +41,7 @@ database.ref("Company").child("busCompany").once("value", function (snapshot) {
 
 
             var val = childSnapshot.val();
-            var companyRandomKey = val.companyRandomKey;
+            var companyRandomKey = val.comTelNo;
 
 
             content += '<tr class="data">';
@@ -109,8 +113,8 @@ $("#tableBusCompany").on('click', '.edits_btn', function () {
 
 function updateBusCompany() {
 
-    var companyRandomKey = document.getElementById('companyRandomKey').value;
-    var comRegNo = document.getElementById('comRegNo').value;
+    //var companyRandomKey = document.getElementById('companyRandomKey').value;
+    //var comRegNo = document.getElementById('comRegNo').value;
     var upComName = document.getElementById("upComName").value;
     var upComMobile = document.getElementById("upComMobile").value;
     var upComEmail = document.getElementById("upComEmail").value;
@@ -118,7 +122,7 @@ function updateBusCompany() {
     var upComNIC = document.getElementById("upComNIC").value;
     var upComAdd = document.getElementById("upComAdd").value;
 
-    firebase.database().ref("Company").child("busCompany").child(companyRandomKey).update({
+    firebase.database().ref("Company").child("busCompany").child(upComMobile).update({
 
         companyName: upComName,
         comOwnerName: upComOwnName,

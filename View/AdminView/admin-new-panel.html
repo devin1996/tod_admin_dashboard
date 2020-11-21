@@ -65,7 +65,9 @@
     #driverTable,
     #conductorTable,
     #tableBusCompanyRequests,
-    #busTableDisplay {
+    #busTableDisplay,
+    #busReportTable,
+    #busReviewTables {
       border-collapse: collapse;
       width: 100%;
       border: 1px solid #ddd;
@@ -251,7 +253,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- modal to update -->
   <div class="modal fade" id="update-out-time-slot">
@@ -523,16 +524,6 @@
         <div class="modal-body">
 
           <form>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputEmail4">Reg No</label>
-                <input type="text" class="form-control" id="comRegNo" disabled />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputPassword4">Reg Key</label>
-                <input type="text" class="form-control" id="companyRandomKey" disabled />
-              </div>
-            </div>
 
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -541,7 +532,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="inputPassword4">Telepohone Number</label>
-                <input type="text" class="form-control" id="upComMobile" />
+                <input type="text" class="form-control" id="upComMobile" disabled />
               </div>
             </div>
 
@@ -572,77 +563,75 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-          <button onclick="updateBus()" type="button" class="btn btn-danger" id="updateBusCompany"
+          <button onclick="updateBusCompany()" type="button" class="btn btn-danger" id="updateBusCompany"
             data-dismiss="modal">Update</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Update Bus-->
+  <div class="modal fade" id="update-out-bus">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Want to Edit this Bus ?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
 
-    <!-- Update Bus-->
-    <div class="modal fade" id="update-out-bus">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Want to Edit this Bus ?</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-  
-            <form>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputEmail4">Reg No</label>
-                  <input type="text" class="form-control" id="busRegNo" disabled />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputPassword4">Reg Key</label>
-                  <input type="text" class="form-control" id="bussearchkey" disabled />
-                </div>
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Reg No</label>
+                <input type="text" class="form-control" id="busRegNo" disabled />
               </div>
-  
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputEmail4">Company Number</label>
-                  <input type="text" class="form-control" id="busComNo" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputPassword4">Conductor Number</label>
-                  <input type="text" class="form-control" id="busConNo" />
-                </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Reg Key</label>
+                <input type="text" class="form-control" id="bussearchkey" disabled />
               </div>
-  
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputEmail4">Driver Number</label>
-                  <input type="text" class="form-control" id="busDriNo" />
-                </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Company Number</label>
+                <input type="text" class="form-control" id="busComNo" />
               </div>
-  
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputEmail4">New Route No</label>
-                  <input type="text" class="form-control" id="busRouteNo" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputPassword4">Effective Date</label>
-                  <input type="date" class="form-control" id="busEffDate" />
-                </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Conductor Number</label>
+                <input type="text" class="form-control" id="busConNo" />
               </div>
-            </form>
-  
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-  
-            <button onclick="updateBus()" type="button" class="btn btn-danger" id="updateBusCompany"
-              data-dismiss="modal">Update</button>
-          </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Driver Number</label>
+                <input type="text" class="form-control" id="busDriNo" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">New Route No</label>
+                <input type="text" class="form-control" id="busRouteNo" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Effective Date</label>
+                <input type="date" class="form-control" id="busEffDate" />
+              </div>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+          <button onclick="updateBus()" type="button" class="btn btn-danger" id="updateBusCompany"
+            data-dismiss="modal">Update</button>
         </div>
       </div>
     </div>
-
+  </div>
 
   <div id="dashboard-home" class="w3-container city" style="display:none">
 
@@ -727,15 +716,15 @@
 
                     <div class="form-group">
                       <label for="exampleInputEmail1">From</label>
-                      <input type="text" class="form-control" id="myInput" placeholder="From" onkeyup="myFunction()">
+                      <input type="text" class="form-control" id="bookingFromSearch" placeholder="From" onkeyup="bookingFromSearch()">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">To</label>
-                      <input type="text" class="form-control" id="To" onkeyup="functionTo()" placeholder="To"
+                      <input type="text" class="form-control" id="bookingToSearch" onkeyup="bookingToSearch()" placeholder="To"
                         title="To">
                     </div>
 
-                    <table border="1">
+                    <table border="1" id="tableBusBooking">
 
                       <thead>
                         <tr class="header">
@@ -1602,7 +1591,7 @@
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="inputEmail4">Register No</label>
-                          <input type="text" class="form-control" id="comRegNo" placeholder="Enter Register No"
+                          <input type="text" class="form-control" id="comRegNoNew" placeholder="Enter Register No"
                             required>
                         </div>
                         <div class="form-group col-md-6">
@@ -1650,6 +1639,15 @@
                             required>
                         </div>
                       </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">Enter a Password</label>
+                          <input type="password" class="form-control" id="comPwd"
+                            placeholder="Password" required>
+                        </div>
+                      </div>
+
 
 
                       <button type="button" onclick="insertNewCompany()" class="btn btn-dark btn-lg btn-block"
@@ -1819,12 +1817,13 @@
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="inputEmail4">Driver No</label>
-                          <input type="text" class="form-control" id="busDriNo" placeholder="Enter Drive Mobile No" required>
+                          <input type="text" class="form-control" id="busDriNo" placeholder="Enter Drive Mobile No"
+                            required>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputPassword4">Conductor NO</label>
-                          <input type="text" class="form-control" id="busConNo" placeholder="Enter the Conductoe Mobile No"
-                            required>
+                          <input type="text" class="form-control" id="busConNo"
+                            placeholder="Enter the Conductoe Mobile No" required>
                         </div>
                       </div>
 
@@ -1840,8 +1839,8 @@
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputPassword4">Route NO</label>
-                          <input type="text" class="form-control" id="busRouteNo"
-                            placeholder="Enter Current Bus Route" required>
+                          <input type="text" class="form-control" id="busRouteNo" placeholder="Enter Current Bus Route"
+                            required>
                         </div>
                       </div>
 
@@ -2214,8 +2213,6 @@
 
   </div>
 
-
-
   <script>
     function openCity(evt, cityName) {
       var i, x, tablinks;
@@ -2231,7 +2228,6 @@
       evt.currentTarget.className += " w3-red";
     }
   </script>
-
 
   <!-- footer -->
   <footer>
@@ -2289,6 +2285,7 @@
     //   window.location = window.location.href;
     // }
     // setInterval('autoRefreshPage()', 120000);
+
 
   </script>
 
