@@ -6,10 +6,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
     <!--===============================================================================================-->
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-storage-compat.js"></script>
     <!--====================================================================================================-->
     <style>
         * {
@@ -26,6 +26,7 @@
             border: 1px solid #ddd;
             margin-bottom: 12px;
         }
+
         #To {
             background-image: url('/css/searchicon.png');
             background-position: 10px 10px;
@@ -36,6 +37,7 @@
             border: 1px solid #ddd;
             margin-bottom: 12px;
         }
+
         #myTable {
             border-collapse: collapse;
             width: 100%;
@@ -89,8 +91,25 @@
     </table>
 
 
-    <script src="/js/database.js"></script>
+    <script src="js/database.js"></script>
     <script>
+        // const firebaseConfig = {
+        //     apiKey: "AIzaSyDVSNwiJxw-godBSv-gzFzYgNUXZU81ksY",
+        //     authDomain: "ptms-4b687.firebaseapp.com",
+        //     databaseURL: "https://ptms-4b687.firebaseio.com",
+        //     projectId: "ptms-4b687",
+        //     storageBucket: "ptms-4b687.appspot.com",
+        //     messagingSenderId: "1028667957586",
+        //     appId: "1:1028667957586:web:698a3ac97b71487e131a8b",
+        //     measurementId: "G-DPJE0QW44H"
+        // };
+        // // Initialize Firebase
+        // if (!firebase.apps.length) {
+        //     console.log(firebase.apps.length);
+        //     firebase.initializeApp(firebaseConfig);
+        // }
+        // firebase.analytics();
+
         var database = firebase.database();
         database.ref("timeSlots").child("busTime").once("value", function (snapshot) {
             if (snapshot.exists()) {
@@ -159,11 +178,11 @@
         }
 
     </script>
-        <script>
-            $(function () {
-                $("#nav-placeholder").load("admin-navbar.html");
-            });
-        </script>
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("admin-navbar.html");
+        });
+    </script>
 </body>
 
 </html>

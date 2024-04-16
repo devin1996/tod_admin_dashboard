@@ -8,7 +8,17 @@ Users
 
 Technologies Used
 
-l. Node Js/javascript
+l. Node : 12.20.2
+javascript
 2. CSS/Bootstrap
 3. HTML5
 4. Firebase
+
+## Commands
+
+## Paths
+
+1. TOD_Admin\View\AdminView\AdminSignIn.html
+2. TOD_Admin\View\AdminView\admin-profile-update.html
+3. TOD_Admin\View\AdminView\admin-new-panel.html
+
