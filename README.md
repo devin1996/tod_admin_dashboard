@@ -1,5 +1,9 @@
 # Transpor on Demand Web Application
 
+## How to Run ????
+
+_Just do nothing Just Run the Html File in the Browser_
+
 Users
 1. Administartors of the System
 2. CGR Admin
