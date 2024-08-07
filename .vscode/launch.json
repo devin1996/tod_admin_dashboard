@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TodApplication<tod>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.codingloo.tod.TodApplication",
+            "projectName": "tod",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
