@@ -11,4 +11,8 @@
       "Read(//c/Users/devin/AppData/Local/Temp/**)",
       "PowerShell(Get-Process node -ErrorAction SilentlyContinue)"
     ],
-    "additionalDir
+    "additionalDirectories": [
+      "d:\\Projects\\codingloo\\TOD_Admin"
+    ]
+  }
+}

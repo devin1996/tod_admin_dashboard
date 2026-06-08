@@ -4,7 +4,7 @@ const { db } = require('../config/firebase');
 
 const REF = 'routes/busRoutes';
 
-router.get('/', verifyToken, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const snap = await db.ref(REF).once('value');
     res.json(snap.val() || {});

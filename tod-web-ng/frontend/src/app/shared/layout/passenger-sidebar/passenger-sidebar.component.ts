@@ -19,6 +19,9 @@ interface NavItem {
 })
 export class PassengerSidebarComponent {
   navItems: NavItem[] = [
-    { label: 'Home',       icon: 'home',          route: '/home' },
+    { label: 'Home',        icon: 'home',          route: '/home' },
+    { label: 'Bus Routes',  icon: 'route',         route: '/bus-routes-public' },
+    { label: 'Schedules',   icon: 'schedule',      route: '/schedules' },
+    { label: 'Promotions',  icon: 'local_offer',   route: '/promotions-public' },
   ];
 }

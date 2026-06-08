@@ -22,7 +22,21 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/public/home/home.component').then(m => m.HomeComponent),
       },
-      // feature routes will be added here panel by panel
+      {
+        path: 'bus-routes-public',
+        loadComponent: () =>
+          import('./features/public/bus-routes/public-bus-routes.component').then(m => m.PublicBusRoutesComponent),
+      },
+      {
+        path: 'schedules',
+        loadComponent: () =>
+          import('./features/public/schedules/public-schedules.component').then(m => m.PublicSchedulesComponent),
+      },
+      {
+        path: 'promotions-public',
+        loadComponent: () =>
+          import('./features/public/promotions/public-promotions.component').then(m => m.PublicPromotionsComponent),
+      },
     ],
   },
 

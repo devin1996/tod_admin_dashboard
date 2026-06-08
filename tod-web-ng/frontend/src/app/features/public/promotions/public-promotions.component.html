@@ -1,0 +1,35 @@
+<div class="page-header">
+  <mat-icon class="page-icon">local_offer</mat-icon>
+  <h2>Promotions</h2>
+</div>
+
+@if (loading()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+
+@if (!loading() && rows().length === 0) {
+  <mat-card>
+    <mat-card-content class="empty-state">
+      <mat-icon>sentiment_satisfied</mat-icon>
+      <p>No active promotions at the moment. Check back soon!</p>
+    </mat-card-content>
+  </mat-card>
+}
+
+<div class="promo-grid">
+  @for (p of rows(); track p.title) {
+    <mat-card class="promo-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="promo-avatar">local_offer</mat-icon>
+        <mat-card-title>{{ p.title }}</mat-card-title>
+        <mat-card-subtitle>Valid: {{ p.startDate }} — {{ p.endDate }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="description">{{ p.description }}</p>
+        <mat-chip-set>
+          <mat-chip color="accent" highlighted>{{ p.discountPercent }}% OFF</mat-chip>
+        </mat-chip-set>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
