@@ -1,0 +1,52 @@
+.public-topbar {
+  background-color: #0277bd;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 8px;
+}
+
+.brand {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  margin-left: 4px;
+  letter-spacing: 2px;
+}
+
+.brand-sub {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  margin-left: 8px;
+  display: none;
+
+  @media (min-width: 600px) {
+    display: inline;
+  }
+}
+
+.spacer {
+  flex: 1;
+}
+
+.admin-login-btn {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  height: 34px;
+  line-height: 34px;
+  padding: 0 12px;
+
+  mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+}

@@ -1,0 +1,15 @@
+<mat-toolbar class="public-topbar">
+  <button mat-icon-button (click)="menuToggle.emit()" aria-label="Toggle menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="brand">TOD</span>
+  <span class="brand-sub">Transport On Demand</span>
+
+  <span class="spacer"></span>
+
+  <a mat-stroked-button class="admin-login-btn" routerLink="/login">
+    <mat-icon>admin_panel_settings</mat-icon>
+    Admin Login
+  </a>
+</mat-toolbar>

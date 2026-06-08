@@ -1,0 +1,13 @@
+<h2 class="page-title">Dashboard</h2>
+
+<div class="cards-grid">
+  @for (card of cards; track card.route) {
+    <mat-card class="dash-card" [routerLink]="card.route"
+              [style.border-top]="'4px solid ' + card.color">
+      <mat-card-content>
+        <mat-icon [style.color]="card.color">{{ card.icon }}</mat-icon>
+        <p>{{ card.label }}</p>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

@@ -1,0 +1,11 @@
+<app-public-topbar (menuToggle)="sidenav.toggle()"></app-public-topbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" [opened]="sidenavOpened" class="sidenav">
+    <app-passenger-sidebar></app-passenger-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

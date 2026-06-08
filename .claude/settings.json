@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(start http://localhost:4200)",
+      "Bash(npm list *)",
+      "Bash(where playwright *)",
+      "Bash(node -e ' *)",
+      "Bash(Get-Content \"C:\\\\Users\\\\devin\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--Projects-codingloo-TOD-Admin\\\\8c24daa4-5af9-44ec-af48-63211605bbaa\\\\tasks\\\\ba1jusi3w.output\")",
+      "Bash(Select-Object -Last 20)",
+      "PowerShell(Start-Process powershell -ArgumentList '-NoProfile -Command \"Set-Location ''d:\\\\Projects\\\\codingloo\\\\TOD_Admin\\\\tod-web-ng\\\\frontend''; npx ng serve --force-esbuild 2>&1 | Tee-Object -FilePath ''C:\\\\Users\\\\devin\\\\AppData\\\\Local\\\\Temp\\\\ng-serve.log''\"' -WindowStyle Normal)",
+      "Read(//c/Users/devin/AppData/Local/Temp/**)",
+      "PowerShell(Get-Process node -ErrorAction SilentlyContinue)"
+    ],
+    "additionalDir

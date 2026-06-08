@@ -1,0 +1,27 @@
+mat-nav-list {
+  padding-top: 16px;
+
+  a {
+    color: #ccc;
+    border-radius: 4px;
+    margin: 2px 8px;
+
+    mat-icon {
+      color: #aaa;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #fff;
+
+      mat-icon { color: #fff; }
+    }
+
+    &.active-link {
+      background-color: #e94560;
+      color: #fff;
+
+      mat-icon { color: #fff; }
+    }
+  }
+}

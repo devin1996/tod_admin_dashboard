@@ -1,1 +1,25 @@
-node_modules
+# Node modules — all locations
+node_modules/
+tod_fyp/node_modules/
+tod_fyp/functions/node_modules/
+tod-web-ng/frontend/node_modules/
+tod-web-ng/rest-api/node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Firebase
+.firebase/
+.firebaserc.local
+
+# Angular build output
+tod-web-ng/frontend/dist/
+tod-web-ng/frontend/.angular/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.tmp.drivedownload/
+.vscode/

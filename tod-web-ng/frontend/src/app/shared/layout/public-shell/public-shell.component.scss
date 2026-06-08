@@ -1,0 +1,16 @@
+.sidenav-container {
+  height: calc(100vh - 64px);
+}
+
+.sidenav {
+  width: 240px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+}
+
+.main-content {
+  padding: 24px;
+  background-color: #f0f4f8;
+  min-height: 100%;
+}

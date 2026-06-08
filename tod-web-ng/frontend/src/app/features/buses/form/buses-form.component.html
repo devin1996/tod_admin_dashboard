@@ -1,0 +1,53 @@
+<div class="page-header">
+  <a mat-icon-button routerLink="/buses"><mat-icon>arrow_back</mat-icon></a>
+  <h2>{{ editId() ? 'Edit Bus' : 'Add Bus' }}</h2>
+</div>
+@if (loading()) {
+  <div class="center-spinner"><mat-spinner diameter="48"></mat-spinner></div>
+} @else {
+  <mat-card><mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Bus Reg No</mat-label>
+        <input matInput formControlName="busRegNo" />
+        <mat-error>Required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Bus Type</mat-label>
+        <mat-select formControlName="busType">
+          @for (t of busTypes; track t) { <mat-option [value]="t">{{ t }}</mat-option> }
+        </mat-select>
+        <mat-error>Required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Capacity</mat-label>
+        <input matInput formControlName="capacity" type="number" />
+        <mat-error>Required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Company ID</mat-label>
+        <input matInput formControlName="companyId" />
+        <mat-error>Required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Route ID</mat-label>
+        <input matInput formControlName="routeId" />
+        <mat-error>Required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Driver ID (optional)</mat-label>
+        <input matInput formControlName="driverId" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Conductor ID (optional)</mat-label>
+        <input matInput formControlName="conductorId" />
+      </mat-form-field>
+      <div class="form-actions span-2">
+        <a mat-stroked-button routerLink="/buses">Cancel</a>
+        <button mat-raised-button color="primary" type="submit" [disabled]="saving()">
+          @if (saving()) { <mat-spinner diameter="18"></mat-spinner> } @else { {{ editId() ? 'Update' : 'Save' }} }
+        </button>
+      </div>
+    </form>
+  </mat-card-content></mat-card>
+}

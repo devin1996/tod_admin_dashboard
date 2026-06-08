@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="topbar">
+  <button mat-icon-button (click)="menuToggle.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="brand">TOD Admin</span>
+  <span class="spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <mat-menu #userMenu="matMenu">
+    <div class="user-email">{{ authService.user()?.email }}</div>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon> Sign out
+    </button>
+  </mat-menu>
+</mat-toolbar>

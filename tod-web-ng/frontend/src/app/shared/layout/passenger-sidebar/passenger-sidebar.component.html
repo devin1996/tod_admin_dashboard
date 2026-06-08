@@ -1,0 +1,18 @@
+<div class="sidebar-header">
+  <mat-icon class="sidebar-icon">directions_bus</mat-icon>
+  <span class="sidebar-title">Passenger</span>
+</div>
+
+<mat-divider></mat-divider>
+
+<mat-nav-list>
+  @for (item of navItems; track item.route) {
+    <a mat-list-item
+       [routerLink]="item.route"
+       routerLinkActive="active-link"
+       [routerLinkActiveOptions]="{ exact: item.route === '/home' }">
+      <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+      <span matListItemTitle>{{ item.label }}</span>
+    </a>
+  }
+</mat-nav-list>

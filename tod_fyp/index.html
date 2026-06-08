@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TOD - Transport on Demand</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6fb;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── Top Navbar ─────────────────────────────────────────────── */
+        .top-navbar {
+            background-color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            height: 60px;
+            flex-shrink: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .brand {
+            color: #e94560;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .brand:hover { text-decoration: none; color: #e94560; }
+        .brand i { margin-right: 8px; }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: #b0b8c9;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .btn-admin {
+            color: #fff;
+            border: 1px solid #e94560;
+            border-radius: 4px;
+            padding: 6px 16px;
+            font-size: 0.82rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-admin:hover {
+            background-color: #e94560;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* ── Body Layout ─────────────────────────────────────────────── */
+        .app-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ── Sidebar ─────────────────────────────────────────────────── */
+        .sidebar {
+            width: 230px;
+            background-color: #16213e;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-header {
+            padding: 20px 20px 8px;
+            color: #5c6b8a;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 600;
+        }
+        .nav-item-custom {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #b0b8c9;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            user-select: none;
+        }
+        .nav-item-custom i {
+            width: 22px;
+            margin-right: 12px;
+            font-size: 0.95rem;
+            text-align: center;
+            color: #5c6b8a;
+            transition: color 0.2s;
+        }
+        .nav-item-custom:hover {
+            background-color: rgba(233,69,96,0.08);
+            color: #fff;
+        }
+        .nav-item-custom:hover i { color: #e94560; }
+        .nav-item-custom.active {
+            background-color: rgba(233,69,96,0.12);
+            color: #fff;
+            border-left-color: #e94560;
+            font-weight: 600;
+        }
+        .nav-item-custom.active i { color: #e94560; }
+
+        .sidebar-divider {
+            border-top: 1px solid #1e2d4a;
+            margin: 8px 16px;
+        }
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 16px 20px;
+        }
+        .sidebar-footer small {
+            color: #3d4f6e;
+            font-size: 0.75rem;
+        }
+
+        /* ── Main Content ─────────────────────────────────────────────── */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 32px;
+        }
+
+        /* Panels */
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* ── Panel: Home ──────────────────────────────────────────────── */
+        .home-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+            border-radius: 12px;
+            padding: 36px 40px;
+            color: white;
+            margin-bottom: 24px;
+        }
+        .home-hero h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .home-hero p { color: #b0b8c9; margin: 0; }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .stat-icon.red   { background: rgba(233,69,96,0.1);  color: #e94560; }
+        .stat-icon.blue  { background: rgba(13,110,253,0.1); color: #0d6efd; }
+        .stat-icon.green { background: rgba(25,135,84,0.1);  color: #198754; }
+        .stat-value { font-size: 1.6rem; font-weight: 700; color: #1a1a2e; line-height: 1; }
+        .stat-label { font-size: 0.8rem; color: #6c757d; margin-top: 4px; }
+
+        /* ── Search Box ───────────────────────────────────────────────── */
+        .search-box {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+        }
+        .search-box .form-control {
+            height: 44px;
+            border-radius: 6px;
+        }
+        .btn-search-custom {
+            background-color: #e94560;
+            border: none;
+            color: white;
+            height: 44px;
+            border-radius: 6px;
+            font-weight: 600;
+            padding: 0 24px;
+        }
+        .btn-search-custom:hover { background-color: #c73652; color: white; }
+        .btn-clear-search {
+            background: none;
+            border: 1px solid #dee2e6;
+            color: #6c757d;
+            height: 44px;
+            border-radius: 6px;
+            padding: 0 16px;
+        }
+        .btn-clear-search:hover { background: #f8f9fa; }
+
+        /* ── Section Header ───────────────────────────────────────────── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            border-left: 4px solid #e94560;
+            padding-left: 12px;
+            margin: 0;
+        }
+        .badge-count {
+            background: #e94560;
+            color: white;
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        /* ── Tables ───────────────────────────────────────────────────── */
+        .table-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .table { margin: 0; }
+        .table thead th {
+            background-color: #1a1a2e;
+            color: #b0b8c9;
+            border: none;
+            font-weight: 500;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            padding: 12px 16px;
+        }
+        .table tbody td {
+            vertical-align: middle;
+            padding: 11px 16px;
+            font-size: 0.88rem;
+            border-color: #f0f2f7;
+            color: #344055;
+        }
+        .table tbody tr:hover { background-color: #f7f9ff; }
+
+        .badge-type {
+            font-size: 0.72rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .badge-Highluxury { background: rgba(111,66,193,0.12); color: #6f42c1; }
+        .badge-luxury     { background: rgba(13,110,253,0.1);  color: #0d6efd; }
+        .badge-semiluxury { background: rgba(25,135,84,0.1);   color: #198754; }
+
+        /* ── Loader / Empty ───────────────────────────────────────────── */
+        .loader-wrap, .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #adb5bd;
+        }
+        .empty-state i { font-size: 2.2rem; display: block; margin-bottom: 10px; }
+        .empty-state p { margin: 0; font-size: 0.9rem; }
+
+        .search-feedback {
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.83rem;
+            margin-bottom: 12px;
+        }
+        .search-feedback.found   { background: #d1fae5; color: #065f46; }
+        .search-feedback.no-match { background: #fee2e2; color: #991b1b; }
+
+        /* ── Overlay for mobile ───────────────────────────────────────── */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 90;
+        }
+
+        /* ── Responsive ───────────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                bottom: 0;
+                z-index: 95;
+                transform: translateX(-100%);
+            }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay.open { display: block; }
+            .hamburger { display: block; }
+            .main-content { padding: 20px 16px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Navbar -->
+    <div class="top-navbar">
+        <a class="brand" href="#">
+            <i class="fas fa-bus"></i>TOD
+        </a>
+        <div class="navbar-right">
+            <button class="hamburger" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="View/AdminView/AdminSignIn.html" class="btn-admin">
+                <i class="fas fa-lock mr-1"></i> Admin Login
+            </a>
+        </div>
+    </div>
+
+    <div class="app-body">
+
+        <!-- Sidebar Overlay (mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">Passenger Portal</div>
+
+            <div class="nav-item-custom active" onclick="showPanel('home', this)">
+                <i class="fas fa-home"></i> Home
+            </div>
+            <div class="nav-item-custom" onclick="showPanel('routes', this)">
+                <i class="fas fa-map-marked-alt"></i> Bus Routes
+            </div>
+            <div class="nav-item-custom" onclick="showPanel('schedules', this)">
+                <i class="fas fa-clock"></i> Bus Schedules
+            </div>
+            <div class="nav-item-custom" onclick="showPanel('search', this)">
+                <i class="fas fa-search"></i> Search
+            </div>
+
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-footer">
+                <small>Transport on Demand &copy; 2020</small>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Panel: Home -->
+            <div id="panel-home" class="panel active">
+                <div class="home-hero">
+                    <h2><i class="fas fa-bus mr-2"></i>Transport on Demand</h2>
+                    <p>Real-time bus routes and schedules. No account needed.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="stat-card">
+                            <div class="stat-icon red"><i class="fas fa-route"></i></div>
+                            <div>
+                                <div class="stat-value" id="statRoutes">–</div>
+                                <div class="stat-label">Bus Routes</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="fas fa-calendar-alt"></i></div>
+                            <div>
+                                <div class="stat-value" id="statSchedules">–</div>
+                                <div class="stat-label">Schedules</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="fas fa-map-pin"></i></div>
+                            <div>
+                                <div class="stat-value" id="statCities">–</div>
+                                <div class="stat-label">Cities Covered</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <p class="text-muted small">
+                        Use the sidebar to browse <strong>Bus Routes</strong> or <strong>Bus Schedules</strong>, or use
+                        <strong>Search</strong> to find departures between two cities.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Panel: Bus Routes -->
+            <div id="panel-routes" class="panel">
+                <div class="section-header">
+                    <h5 class="section-title"><i class="fas fa-map-marked-alt mr-2"></i>Bus Routes</h5>
+                    <span class="badge-count" id="routesBadge">–</span>
+                </div>
+                <div class="table-card">
+                    <div id="routesLoader" class="loader-wrap">
+                        <div class="spinner-border spinner-border-sm text-secondary mr-2"></div> Loading...
+                    </div>
+                    <div id="routesTableWrap" style="display:none;">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Route No</th>
+                                        <th>Route Name</th>
+                                        <th>Distance</th>
+                                        <th>Type</th>
+                                        <th>Avg Speed</th>
+                                        <th>Avg Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="routesTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="routesEmpty" class="empty-state" style="display:none;">
+                        <i class="fas fa-map-signs"></i>
+                        <p>No routes available yet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: Bus Schedules -->
+            <div id="panel-schedules" class="panel">
+                <div class="section-header">
+                    <h5 class="section-title"><i class="fas fa-clock mr-2"></i>Bus Schedules</h5>
+                    <span class="badge-count" id="schedulesBadge">–</span>
+                </div>
+                <div class="table-card">
+                    <div id="schedulesLoader" class="loader-wrap">
+                        <div class="spinner-border spinner-border-sm text-secondary mr-2"></div> Loading...
+                    </div>
+                    <div id="schedulesTableWrap" style="display:none;">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Departure</th>
+                                        <th>Arrival</th>
+                                        <th>Route No</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schedulesTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="schedulesEmpty" class="empty-state" style="display:none;">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>No schedules available yet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: Search -->
+            <div id="panel-search" class="panel">
+                <div class="section-header mb-3">
+                    <h5 class="section-title"><i class="fas fa-search mr-2"></i>Search Schedules</h5>
+                </div>
+                <div class="search-box">
+                    <div class="row align-items-end">
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <label class="small font-weight-bold text-muted mb-1">FROM</label>
+                            <input type="text" id="searchFrom" class="form-control" placeholder="e.g. Colombo">
+                        </div>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <label class="small font-weight-bold text-muted mb-1">TO</label>
+                            <input type="text" id="searchTo" class="form-control" placeholder="e.g. Kandy">
+                        </div>
+                        <div class="col-md-4 d-flex gap-8">
+                            <button class="btn-search-custom mr-2" onclick="runSearch()">
+                                <i class="fas fa-search mr-1"></i> Search
+                            </button>
+                            <button class="btn-clear-search" onclick="clearSearch()">Clear</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="searchFeedback" style="display:none;" class="search-feedback"></div>
+                <div id="searchResultsWrap" style="display:none;">
+                    <div class="table-card">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Departure</th>
+                                        <th>Arrival</th>
+                                        <th>Route No</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="searchResultsBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        // ── Firebase Init ────────────────────────────────────────────
+        var firebaseConfig = {
+            apiKey: "AIzaSyDVSNwiJxw-godBSv-gzFzYgNUXZU81ksY",
+            authDomain: "ptms-4b687.firebaseapp.com",
+            databaseURL: "https://ptms-4b687.firebaseio.com",
+            projectId: "ptms-4b687",
+            storageBucket: "ptms-4b687.appspot.com",
+            messagingSenderId: "1028667957586",
+            appId: "1:1028667957586:web:698a3ac97b71487e131a8b"
+        };
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        var db = firebase.database();
+
+        // ── Data ─────────────────────────────────────────────────────
+        var allSchedules = [];
+
+        // Load Routes
+        db.ref("routes/busRoute").once("value", function (snapshot) {
+            document.getElementById("routesLoader").style.display = "none";
+
+            if (!snapshot.exists()) {
+                document.getElementById("routesEmpty").style.display = "block";
+                document.getElementById("routesBadge").textContent = "0";
+                document.getElementById("statRoutes").textContent = "0";
+                return;
+            }
+
+            var count = 0;
+            var rows = "";
+            snapshot.forEach(function (child) {
+                var r = child.val();
+                count++;
+                var typeName  = r.busType === "Highluxury" ? "High Luxury"
+                              : r.busType === "luxury"     ? "Luxury" : "Semi Luxury";
+                rows += "<tr>"
+                    + "<td><strong>" + (r.routeNo001 || "-") + "</strong></td>"
+                    + "<td>" + (r.routeName || "-") + "</td>"
+                    + "<td>" + (r.totalDistance || "-") + " km</td>"
+                    + "<td><span class='badge badge-type badge-" + (r.busType || "semiluxury") + "'>" + typeName + "</span></td>"
+                    + "<td>" + (r.avgSpeed || "-") + " km/h</td>"
+                    + "<td>" + (r.avgTime || "-") + "</td>"
+                    + "</tr>";
+            });
+
+            document.getElementById("routesTableBody").innerHTML = rows;
+            document.getElementById("routesTableWrap").style.display = "block";
+            document.getElementById("routesBadge").textContent = count;
+            document.getElementById("statRoutes").textContent = count;
+        });
+
+        // Load Schedules
+        db.ref("timeSlots/busTimes/busTimeDislpay").once("value", function (snapshot) {
+            document.getElementById("schedulesLoader").style.display = "none";
+
+            if (!snapshot.exists()) {
+                document.getElementById("schedulesEmpty").style.display = "block";
+                document.getElementById("schedulesBadge").textContent = "0";
+                document.getElementById("statSchedules").textContent = "0";
+                return;
+            }
+
+            var cities = new Set();
+            var rows = "";
+            snapshot.forEach(function (child) {
+                var s = child.val();
+                allSchedules.push(s);
+                if (s.from) cities.add(s.from.trim());
+                if (s.to)   cities.add(s.to.trim());
+                rows += scheduleRow(s);
+            });
+
+            document.getElementById("schedulesTableBody").innerHTML = rows;
+            document.getElementById("schedulesTableWrap").style.display = "block";
+            document.getElementById("schedulesBadge").textContent = allSchedules.length;
+            document.getElementById("statSchedules").textContent = allSchedules.length;
+            document.getElementById("statCities").textContent = cities.size;
+        });
+
+        function scheduleRow(s) {
+            return "<tr>"
+                + "<td>" + (s.from || "-") + "</td>"
+                + "<td>" + (s.to || "-") + "</td>"
+                + "<td><strong>" + (s.depTime || "-") + "</strong></td>"
+                + "<td><strong>" + (s.arrTime || "-") + "</strong></td>"
+                + "<td>" + (s.routeRegNo || "-") + "</td>"
+                + "</tr>";
+        }
+
+        // ── Search ────────────────────────────────────────────────────
+        function runSearch() {
+            var from = document.getElementById("searchFrom").value.trim().toLowerCase();
+            var to   = document.getElementById("searchTo").value.trim().toLowerCase();
+
+            var feedback   = document.getElementById("searchFeedback");
+            var resultsWrap = document.getElementById("searchResultsWrap");
+
+            if (!from && !to) {
+                feedback.style.display = "none";
+                resultsWrap.style.display = "none";
+                return;
+            }
+
+            var filtered = allSchedules.filter(function (s) {
+                var mFrom = !from || (s.from && s.from.toLowerCase().includes(from));
+                var mTo   = !to   || (s.to   && s.to.toLowerCase().includes(to));
+                return mFrom && mTo;
+            });
+
+            if (!filtered.length) {
+                feedback.className = "search-feedback no-match";
+                feedback.innerHTML = '<i class="fas fa-times-circle mr-1"></i>No schedules found for that route.';
+                feedback.style.display = "block";
+                resultsWrap.style.display = "none";
+            } else {
+                feedback.className = "search-feedback found";
+                feedback.innerHTML = '<i class="fas fa-check-circle mr-1"></i>' + filtered.length + ' schedule(s) found.';
+                feedback.style.display = "block";
+                document.getElementById("searchResultsBody").innerHTML = filtered.map(scheduleRow).join("");
+                resultsWrap.style.display = "block";
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById("searchFrom").value = "";
+            document.getElementById("searchTo").value   = "";
+            document.getElementById("searchFeedback").style.display = "none";
+            document.getElementById("searchResultsWrap").style.display = "none";
+        }
+
+        document.getElementById("searchFrom").addEventListener("keyup", function (e) { if (e.key === "Enter") runSearch(); });
+        document.getElementById("searchTo").addEventListener("keyup",   function (e) { if (e.key === "Enter") runSearch(); });
+
+        // ── Panel Navigation ──────────────────────────────────────────
+        function showPanel(name, el) {
+            document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
+            document.querySelectorAll(".nav-item-custom").forEach(function (n) { n.classList.remove("active"); });
+            document.getElementById("panel-" + name).classList.add("active");
+            el.classList.add("active");
+            if (window.innerWidth <= 768) toggleSidebar();
+        }
+
+        // ── Sidebar Toggle (mobile) ───────────────────────────────────
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+            document.getElementById("sidebarOverlay").classList.toggle("open");
+        }
+    </script>
+
+</body>
+</html>
